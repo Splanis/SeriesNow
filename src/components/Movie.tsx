@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IMovie } from "./context/MoviesContext";
 import styled from "styled-components";
 
