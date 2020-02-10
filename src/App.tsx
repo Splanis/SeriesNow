@@ -3,29 +3,31 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import Movies from "./components/Movies";
-import Series from "./components/Series";
+import Shows from "./components/Shows/Shows";
 import styled from "styled-components";
 import GlobalStyles from "./components/sharedStyles/GlobalStyles";
-import { MoviesProvider } from "./components/context/MoviesContext";
+import { ShowProvider } from "./components/context/ShowContext";
+import { useShows } from "./components/context/ShowContext";
 
 const App: React.FC = () => {
+    // const providerValues = useShows();
+
     return (
         <div>
-            <MoviesProvider>
+            <ShowProvider>
                 <Router>
                     <GlobalStyles />
                     <Navbar />
                     <Container>
                         <Switch>
                             <Route exact path="/" component={Homepage} />
-                            <Route exact path="/series" component={Series} />
-                            <Route exact path="/movies" component={Movies} />
+                            <Route exact path="/series" component={Shows} />
+                            <Route exact path="/movies" component={Shows} />
                         </Switch>
                     </Container>
                     <Footer />
                 </Router>
-            </MoviesProvider>
+            </ShowProvider>
         </div>
     );
 };
@@ -33,6 +35,7 @@ const App: React.FC = () => {
 const Container = styled.div`
     padding-top: 80px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100;
