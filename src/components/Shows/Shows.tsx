@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useShows } from "../context/ShowContext";
 import Show from "./Show";
-import Header from "../Header";
+import Header from "../Header/Header";
 import styled from "styled-components";
 
 const Shows: React.FC = () => {
