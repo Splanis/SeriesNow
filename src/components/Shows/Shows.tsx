@@ -1,43 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useShows } from "../context/ShowContext";
 import Show from "./Show";
 import Header from "../Header/Header";
 import styled from "styled-components";
+import { Button } from "../sharedStyles/Button";
 
 const Shows: React.FC = () => {
     const providerValues = useShows();
-    const [page, setPage] = useState<number>(1);
 
     const handlePage = () => {
-        if (page !== 1000)
-        setPage(page + 1);
+        if (providerValues?.page !== 1000) {
+            providerValues?.setPage(providerValues?.page + 1);
+        }
     };
 
     return (
         <ShowsContainer>
             <Header />
             <ShowsCards>
-                {providerValues?.shows.map(movie => (
+                {providerValues?.shows.map(show => (
                     <Show
-                        key={movie.id}
-                        title={movie.title}
-                        original_title={movie.original_title}
-                        adult={movie.adult}
-                        backdrop_path={movie.backdrop_path}
-                        id={movie.id}
-                        popularity={movie.popularity}
-                        vote_count={movie.vote_count}
-                        vote_average={movie.vote_average}
-                        video={movie.video}
-                        poster_path={movie.poster_path}
-                        original_language={movie.original_language}
-                        genre_ids={movie.genre_ids}
-                        overview={movie.overview}
-                        release_date={movie.release_date}
+                        key={show.id}
+                        title={show.title}
+                        original_title={show.original_title}
+                        adult={show.adult}
+                        backdrop_path={show.backdrop_path}
+                        id={show.id}
+                        popularity={show.popularity}
+                        vote_count={show.vote_count}
+                        vote_average={show.vote_average}
+                        video={show.video}
+                        poster_path={show.poster_path}
+                        original_language={show.original_language}
+                        genre_ids={show.genre_ids}
+                        overview={show.overview}
+                        release_date={show.release_date}
                     />
                 ))}
             </ShowsCards>
-            <Button onClick={handlePage}>Load More</Button>
+            {providerValues?.page === 1000 || providerValues?.query ? null : <Button onClick={handlePage}>Load More</Button>}
         </ShowsContainer>
     );
 };
@@ -54,20 +55,6 @@ const ShowsCards = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-`;
-
-const Button = styled.button`
-    width: 100px;
-    background: black;
-    color: white;
-    border: none;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 30px;
-
-    &:hover {
-        cursor: pointer;
-    }
 `;
 
 export default Shows;
