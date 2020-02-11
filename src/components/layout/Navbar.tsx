@@ -14,15 +14,29 @@ const Movies: React.FC = () => {
         <Nav>
             <StyledLink to="/">Logo</StyledLink>
 
-            <form action="">
-                <input type="text" value={providerValues?.query} placeholder="search" onChange={queryHandle} />
+            <form>
+                <Input type="text" value={providerValues?.query} placeholder="Search..." onChange={queryHandle} />
             </form>
 
             <div>
-                <StyledLink to="/series" onClick={() => {providerValues?.setShow('tv')}}>
+                <StyledLink
+                    to="/series"
+                    onClick={() => {
+                        providerValues?.setShow("tv");
+                        providerValues?.setPage(1);
+                        window.scrollTo(0, 0);
+                    }}
+                >
                     Series
                 </StyledLink>
-                <StyledLink to="/movies" onClick={() => {providerValues?.setShow('movie')}}>
+                <StyledLink
+                    to="/movies"
+                    onClick={() => {
+                        providerValues?.setShow("movie");
+                        providerValues?.setPage(1);
+                        window.scrollTo(0, 0);
+                    }}
+                >
                     Movies
                 </StyledLink>
             </div>
@@ -33,13 +47,14 @@ const Movies: React.FC = () => {
 const Nav = styled.nav`
     background: black;
     color: white;
-    height: 60px;
+    height: 70px;
     position: fixed;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-left: 10px;
+    z-index: 10;
 `;
 
 const StyledLink = styled(Link)`
@@ -47,6 +62,15 @@ const StyledLink = styled(Link)`
     margin: 20px;
     text-decoration: none;
     font-size: 1.5rem;
+`;
+
+const Input = styled.input`
+    color: white;
+    background: black;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.1rem;
 `;
 
 export default Movies;
