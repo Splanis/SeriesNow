@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useShows } from "../context/ShowContext";
+import { Button } from "../sharedStyles/Button";
 
 const Sort: React.FC = () => {
     const providerValues = useShows();
+    const [activeSort, setActiveSort] = useState<'popularity' | 'newest' | 'rating'>('popularity');
 
     const handleSort = (e: any) => {
         switch (e.target.value) {
             case "newest":
                 providerValues?.setSort("primary_release_date.desc");
+                setActiveSort('newest');
                 break;
             case "rating":
                 providerValues?.setSort("vote_average.desc");
+                setActiveSort('rating');
                 break;
             default:
                 providerValues?.setSort("popularity.desc");
+                setActiveSort('popularity');
                 break;
         }
     };
-    
+
     return (
         <Buttons>
-            sort by
-            <Button value="popularity" onClick={handleSort}>
+            Sort by
+            <Button style={{ background: activeSort === "popularity" ? "#333333" : "black" }} value="popularity" onClick={handleSort}>
                 Popularity
             </Button>
-            <Button value="rating" onClick={handleSort}>
+            <Button style={{ background: activeSort === "rating" ? "#333333" : "black" }} value="rating" onClick={handleSort}>
                 Rating
             </Button>
-            <Button value="newest" onClick={handleSort}>
+            <Button style={{ background: activeSort === "newest" ? "#333333" : "black" }} value="newest" onClick={handleSort}>
                 Released: Newest
             </Button>
         </Buttons>
@@ -36,10 +41,5 @@ const Sort: React.FC = () => {
 };
 
 const Buttons = styled.div``;
-
-const Button = styled.button`
-    padding: 5px;
-    margin: 5px;
-`;
 
 export default Sort;
