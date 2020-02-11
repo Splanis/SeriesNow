@@ -7,11 +7,8 @@ import Shows from "./components/Shows/Shows";
 import styled from "styled-components";
 import GlobalStyles from "./components/sharedStyles/GlobalStyles";
 import { ShowProvider } from "./components/context/ShowContext";
-import { useShows } from "./components/context/ShowContext";
 
 const App: React.FC = () => {
-    // const providerValues = useShows();
-
     return (
         <div>
             <ShowProvider>
@@ -33,7 +30,7 @@ const App: React.FC = () => {
 };
 
 const Container = styled.div`
-    padding-top: 80px;
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
