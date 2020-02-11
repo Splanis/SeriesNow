@@ -6,7 +6,6 @@ import Sort from "./Sort";
 const Header: React.FC = () => {
     return (
         <HeaderContainer>
-            <h1>Header</h1>
             <Sort />
             <Filter />
         </HeaderContainer>
