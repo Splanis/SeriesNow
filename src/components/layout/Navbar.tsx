@@ -12,13 +12,15 @@ const Movies: React.FC = () => {
 
     return (
         <Nav>
-            <StyledLink to="/">Logo</StyledLink>
+            <Logo>
+                <StyledLink to="/">Logo</StyledLink>
+            </Logo>
 
-            <form>
+            <Form>
                 <Input type="text" value={providerValues?.query} placeholder="Search..." onChange={queryHandle} />
-            </form>
+            </Form>
 
-            <div>
+            <Links>
                 <StyledLink
                     to="/series"
                     onClick={() => {
@@ -39,7 +41,8 @@ const Movies: React.FC = () => {
                 >
                     Movies
                 </StyledLink>
-            </div>
+                <p style={{fontSize: "1.5rem"}}>Username</p>
+            </Links>
         </Nav>
     );
 };
@@ -57,12 +60,18 @@ const Nav = styled.nav`
     z-index: 10;
 `;
 
+const Logo = styled.div`
+    width: 250px;
+`;
+
 const StyledLink = styled(Link)`
     color: white;
     margin: 20px;
     text-decoration: none;
     font-size: 1.5rem;
 `;
+
+const Form = styled.form``;
 
 const Input = styled.input`
     color: white;
@@ -71,6 +80,12 @@ const Input = styled.input`
     border-radius: 10px;
     padding: 10px;
     font-size: 1.1rem;
+`;
+
+const Links = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
 `;
 
 export default Movies;
