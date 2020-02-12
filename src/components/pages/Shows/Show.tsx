@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { IShow } from "../context/ShowContext";
+import { IShow } from "../../context/ShowContext";
+import { useShows } from "../../context/ShowContext";
 import styled from "styled-components";
-import likeIcon from "../../assets/icons/like.png";
-import likedIcon from "../../assets/icons/liked.png";
-import watchlistIcon from "../../assets/icons/watchlist.png";
-import addedWatchlistIcon from "../../assets/icons/addedWatchlist.png";
+import likeIcon from "../../../assets/icons/like.png";
+import likedIcon from "../../../assets/icons/liked.png";
+import watchlistIcon from "../../../assets/icons/watchlist.png";
+import addedWatchlistIcon from "../../../assets/icons/addedWatchlist.png";
 
-const Show: React.FC<IShow> = ({ title, poster_path, overview, release_date, vote_average }) => {
+const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average }) => {
+    const providerValues = useShows();
     const [liked, setLike] = useState<boolean>(false);
     const [watchlist, setWatchlist] = useState<boolean>(false);
 
@@ -22,8 +24,11 @@ const Show: React.FC<IShow> = ({ title, poster_path, overview, release_date, vot
         <ShowCard>
             <Img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
             <ShowDetails>
-                <Title>{title}</Title>
-                <ReleaseDate>Released: {release_date}</ReleaseDate>
+                <Title>{providerValues?.showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
+                <ReleaseDate>
+                    {providerValues?.showType === "movie" ? "Released: " : "First Air Date: "}
+                    {providerValues?.showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
+                </ReleaseDate>
                 <Overview>
                     {overview ? overview.slice(0, 110) : overview}
                     {"..."}
