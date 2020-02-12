@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Homepage from "./components/Homepage";
+import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from "react-router-dom";
+import Homepage from "./components/pages/Homepage";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import Shows from "./components/Shows/Shows";
+import Shows from "./components/pages/Shows/Shows";
+import Error404 from "./components/pages/Error404";
 import styled from "styled-components";
 import GlobalStyles from "./components/sharedStyles/GlobalStyles";
 import { ShowProvider } from "./components/context/ShowContext";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
                             <Route exact path="/" component={Homepage} />
                             <Route exact path="/series" component={Shows} />
                             <Route exact path="/movies" component={Shows} />
+                            <Route component={Error404} />
                         </Switch>
                     </Container>
                     <Footer />
