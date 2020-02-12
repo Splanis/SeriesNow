@@ -24,7 +24,7 @@ const Movies: React.FC = () => {
                 <StyledLink
                     to="/series"
                     onClick={() => {
-                        providerValues?.setShow("tv");
+                        providerValues?.setShowType("tv");
                         providerValues?.setPage(1);
                         window.scrollTo(0, 0);
                     }}
@@ -34,21 +34,21 @@ const Movies: React.FC = () => {
                 <StyledLink
                     to="/movies"
                     onClick={() => {
-                        providerValues?.setShow("movie");
+                        providerValues?.setShowType("movie");
                         providerValues?.setPage(1);
                         window.scrollTo(0, 0);
                     }}
                 >
                     Movies
                 </StyledLink>
-                <p style={{fontSize: "1.5rem"}}>Username</p>
+                <p style={{ fontSize: "1.5rem", margin: '20px' }}>Username</p>
             </Links>
         </Nav>
     );
 };
 
 const Nav = styled.nav`
-    background: black;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
     height: 70px;
     position: fixed;
@@ -75,7 +75,7 @@ const Form = styled.form``;
 
 const Input = styled.input`
     color: white;
-    background: black;
+    background: rgba(0, 0, 0, 0.7);
     border: none;
     border-radius: 10px;
     padding: 10px;
