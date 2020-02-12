@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useShows } from "../context/ShowContext";
+import React from "react";
+import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
-import Header from "../Header/Header";
+import Header from "../../Header/Header";
 import styled from "styled-components";
-import { Button } from "../sharedStyles/Button";
+import BottomScrollListener from 'react-bottom-scroll-listener'
 
 const Shows: React.FC = () => {
     const providerValues = useShows();
@@ -22,7 +22,7 @@ const Shows: React.FC = () => {
                     <Show
                         key={show.id}
                         title={show.title}
-                        original_title={show.original_title}
+                        original_name={show.original_name}
                         adult={show.adult}
                         backdrop_path={show.backdrop_path}
                         id={show.id}
@@ -35,10 +35,11 @@ const Shows: React.FC = () => {
                         genre_ids={show.genre_ids}
                         overview={show.overview}
                         release_date={show.release_date}
+                        first_air_date={show.first_air_date}
                     />
                 ))}
             </ShowsCards>
-            {providerValues?.page === 1000 || providerValues?.query ? null : <Button onClick={handlePage}>Load More</Button>}
+            <BottomScrollListener onBottom={handlePage} />
         </ShowsContainer>
     );
 };
