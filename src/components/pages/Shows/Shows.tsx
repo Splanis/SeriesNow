@@ -3,7 +3,7 @@ import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
 import Header from "../../Header/Header";
 import styled from "styled-components";
-import BottomScrollListener from 'react-bottom-scroll-listener'
+import BottomScrollListener from "react-bottom-scroll-listener";
 
 const Shows: React.FC = () => {
     const providerValues = useShows();
@@ -16,7 +16,7 @@ const Shows: React.FC = () => {
 
     return (
         <ShowsContainer>
-            <Header />
+            {!providerValues?.query ? <Header /> : null}
             <ShowsCards>
                 {providerValues?.shows.map(show => (
                     <Show
@@ -39,7 +39,7 @@ const Shows: React.FC = () => {
                     />
                 ))}
             </ShowsCards>
-            <BottomScrollListener onBottom={handlePage} />
+            {!providerValues?.query ? <BottomScrollListener onBottom={handlePage} /> : null}
         </ShowsContainer>
     );
 };
