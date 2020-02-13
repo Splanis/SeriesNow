@@ -8,7 +8,7 @@ import likedIcon from "../../../assets/icons/liked.png";
 import watchlistIcon from "../../../assets/icons/watchlist.png";
 import addedWatchlistIcon from "../../../assets/icons/addedWatchlist.png";
 
-const Show: React.FC<IShow> = ({ title, original_name, backdrop_path, overview, release_date, first_air_date, vote_average, id }) => {
+const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average, id }) => {
     const { showType } = useShows();
     const [liked, setLike] = useState<boolean>(false);
     const [watchlist, setWatchlist] = useState<boolean>(false);
@@ -22,38 +22,36 @@ const Show: React.FC<IShow> = ({ title, original_name, backdrop_path, overview, 
     };
 
     return (
-        <StyledLink to={`/${showType}/${id}`}>
-            <ShowCard>
-                <Img src={`https://image.tmdb.org/t/p/w300${backdrop_path}`} alt="" />
-                <ShowDetails>
-                    <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
-                    <ReleaseDate>
-                        {showType === "movie" ? "Released: " : "First Air Date: "}
-                        {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
-                    </ReleaseDate>
-                    <Overview>
-                        {overview ? overview.slice(0, 100) : overview}
-                        {"..."}
-                    </Overview>
-                    <Info>
-                        <Rating>
-                            Rating:{" "}
-                            <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>
-                                {vote_average}
-                            </span>
-                        </Rating>
-                        <Buttons>
-                            <Button onClick={handleWatchlist}>
-                                <img src={watchlist ? addedWatchlistIcon : watchlistIcon} alt="" />
-                            </Button>
-                            <Button onClick={handleLike}>
-                                <img src={liked ? likedIcon : likeIcon} alt="" />
-                            </Button>
-                        </Buttons>
-                    </Info>
-                </ShowDetails>
-            </ShowCard>
-        </StyledLink>
+        <ShowCard>
+            <StyledLink to={`/${showType}/${id}`}>
+                <Poster src={`https://image.tmdb.org/t/p/w400${poster_path}`} alt="" />
+            </StyledLink>
+            <ShowDetails>
+                <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
+                <ReleaseDate>
+                    {showType === "movie" ? "Released: " : "First Air Date: "}
+                    {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
+                </ReleaseDate>
+                <Overview>
+                    {overview ? overview.slice(0, 100) : overview}
+                    {"..."}
+                </Overview>
+                <Info>
+                    <Rating>
+                        Rating:{" "}
+                        <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
+                    </Rating>
+                    <Buttons>
+                        <Button onClick={handleWatchlist}>
+                            <img src={watchlist ? addedWatchlistIcon : watchlistIcon} alt="" />
+                        </Button>
+                        <Button onClick={handleLike}>
+                            <img src={liked ? likedIcon : likeIcon} alt="" />
+                        </Button>
+                    </Buttons>
+                </Info>
+            </ShowDetails>
+        </ShowCard>
     );
 };
 
@@ -67,18 +65,18 @@ const ShowCard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 590px;
     margin: 10px;
     border-radius: 3px;
     box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
     transition: all 0.2s ease-in-out;
 `;
 
-const Img = styled.img`
-    width: 100%;
-    height: 220px;
-    border-radius: 3px;
+const Poster = styled.img`
+    width: 300px;
+    height: 400px;
+    border-radius: 3px 3px 0 0;
 `;
 
 const ShowDetails = styled.div`
@@ -90,7 +88,7 @@ const ShowDetails = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     flex: 2;
     display: flex;
     align-items: center;

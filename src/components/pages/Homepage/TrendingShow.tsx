@@ -3,7 +3,7 @@ import { IShow } from "../../context/ShowContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const TrendingShow: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average, id }) => {
+const TrendingShow: React.FC<IShow> = ({ title, original_name, backdrop_path, overview, release_date, first_air_date, vote_average, id }) => {
     let showType;
 
     if (title) {
@@ -16,7 +16,7 @@ const TrendingShow: React.FC<IShow> = ({ title, original_name, poster_path, over
         <div>
             <StyledLink to={`/${showType}/${id}`}>
                 <ShowCard>
-                    <Img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
+                    <Poster src={`https://image.tmdb.org/t/p/w300${backdrop_path}`} alt="" />
                     <ShowDetails>
                         <Title>
                             {original_name}
@@ -55,9 +55,9 @@ const ShowCard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 250px;
-    height: 360px;
-    margin: 15px;
+    width: 400px;
+    height: 250px;
+    margin: 25px;
     border-radius: 3px;
     box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
     transition: all 0.2s ease-in-out;
@@ -65,7 +65,8 @@ const ShowCard = styled.div`
 
     &:hover {
         transform: scale(1.2);
-
+        z-index: 10;
+        
         img {
             filter: blur(22px);
             filter: brightness(20%);
@@ -77,9 +78,9 @@ const ShowCard = styled.div`
     }
 `;
 
-const Img = styled.img`
+const Poster = styled.img`
     width: 100%;
-    height: 360px;
+    height: 100%;
     border-radius: 3px;
     transition: all 0.2s ease-in-out;
 `;
