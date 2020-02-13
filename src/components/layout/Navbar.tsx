@@ -4,10 +4,14 @@ import { Link } from "react-router-dom";
 import { useShows } from "../context/ShowContext";
 
 const Movies: React.FC = () => {
-    const {query, setQuery, setPage, setShowType} = useShows();
+    const { query, setQuery, setPage, setShowType } = useShows();
     const queryHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value);
     };
+
+    useEffect(() => {
+        setPage(1);
+    }, [query, setPage]);
 
     return (
         <Nav>
@@ -21,7 +25,7 @@ const Movies: React.FC = () => {
 
             <Links>
                 <StyledLink
-                    to="/series"
+                    to="/tv"
                     onClick={() => {
                         setShowType("tv");
                         setPage(1);
@@ -31,7 +35,7 @@ const Movies: React.FC = () => {
                     Series
                 </StyledLink>
                 <StyledLink
-                    to="/movies"
+                    to="/movie"
                     onClick={() => {
                         setShowType("movie");
                         setPage(1);
