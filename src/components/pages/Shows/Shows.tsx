@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
 import Header from "../../Header/Header";
@@ -6,19 +6,23 @@ import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
 
 const Shows: React.FC = () => {
-    const providerValues = useShows();
+    const { shows, page, setPage, query, setSort} = useShows();
 
     const handlePage = () => {
-        if (providerValues?.page !== 1000) {
-            providerValues?.setPage(providerValues?.page + 1);
+        if (page !== 1000) {
+            setPage(page + 1);
         }
     };
 
+    useEffect(() => {
+        setSort("popularity.desc");
+    }, [setSort]);
+
     return (
         <ShowsContainer>
-            {!providerValues?.query ? <Header /> : null}
+            {!query ? <Header /> : null}
             <ShowsCards>
-                {providerValues?.shows.map(show => (
+                {shows.map(show => (
                     <Show
                         key={show.id}
                         title={show.title}
@@ -39,7 +43,7 @@ const Shows: React.FC = () => {
                     />
                 ))}
             </ShowsCards>
-            {!providerValues?.query ? <BottomScrollListener onBottom={handlePage} /> : null}
+            <BottomScrollListener onBottom={handlePage} />
         </ShowsContainer>
     );
 };

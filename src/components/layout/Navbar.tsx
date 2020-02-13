@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useShows } from "../context/ShowContext";
 
 const Movies: React.FC = () => {
-    const providerValues = useShows();
-
+    const {query, setQuery, setPage, setShowType} = useShows();
     const queryHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        providerValues?.setQuery(e.target.value);
+        setQuery(e.target.value);
     };
 
     return (
@@ -17,15 +16,15 @@ const Movies: React.FC = () => {
             </Logo>
 
             <Form>
-                <Input type="text" value={providerValues?.query} placeholder="Search..." onChange={queryHandle} />
+                <Input type="text" value={query} placeholder="Search..." onChange={queryHandle} />
             </Form>
 
             <Links>
                 <StyledLink
                     to="/series"
                     onClick={() => {
-                        providerValues?.setShowType("tv");
-                        providerValues?.setPage(1);
+                        setShowType("tv");
+                        setPage(1);
                         window.scrollTo(0, 0);
                     }}
                 >
@@ -34,14 +33,14 @@ const Movies: React.FC = () => {
                 <StyledLink
                     to="/movies"
                     onClick={() => {
-                        providerValues?.setShowType("movie");
-                        providerValues?.setPage(1);
+                        setShowType("movie");
+                        setPage(1);
                         window.scrollTo(0, 0);
                     }}
                 >
                     Movies
                 </StyledLink>
-                <p style={{ fontSize: "1.5rem", margin: '20px' }}>Username</p>
+                <p style={{ fontSize: "1.5rem", margin: "20px" }}>Username</p>
             </Links>
         </Nav>
     );

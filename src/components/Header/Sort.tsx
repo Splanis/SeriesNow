@@ -4,22 +4,22 @@ import { useShows } from "../context/ShowContext";
 import { Button } from "../sharedStyles/Button";
 
 const Sort: React.FC = () => {
-    const providerValues = useShows();
-    const [activeSort, setActiveSort] = useState<'popularity' | 'newest' | 'rating'>('popularity');
+    const { setSort } = useShows();
+    const [activeSort, setActiveSort] = useState<"popularity" | "newest" | "rating">("popularity");
 
     const handleSort = (e: any) => {
         switch (e.target.value) {
             case "newest":
-                providerValues?.setSort("primary_release_date.desc");
-                setActiveSort('newest');
+                setSort("primary_release_date.desc");
+                setActiveSort("newest");
                 break;
             case "rating":
-                providerValues?.setSort("vote_average.desc");
-                setActiveSort('rating');
+                setSort("vote_average.desc");
+                setActiveSort("rating");
                 break;
             default:
-                providerValues?.setSort("popularity.desc");
-                setActiveSort('popularity');
+                setSort("popularity.desc");
+                setActiveSort("popularity");
                 break;
         }
     };

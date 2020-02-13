@@ -8,7 +8,7 @@ import watchlistIcon from "../../../assets/icons/watchlist.png";
 import addedWatchlistIcon from "../../../assets/icons/addedWatchlist.png";
 
 const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average }) => {
-    const providerValues = useShows();
+    const { showType } = useShows();
     const [liked, setLike] = useState<boolean>(false);
     const [watchlist, setWatchlist] = useState<boolean>(false);
 
@@ -24,13 +24,13 @@ const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, re
         <ShowCard>
             <Img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
             <ShowDetails>
-                <Title>{providerValues?.showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
+                <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
                 <ReleaseDate>
-                    {providerValues?.showType === "movie" ? "Released: " : "First Air Date: "}
-                    {providerValues?.showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
+                    {showType === "movie" ? "Released: " : "First Air Date: "}
+                    {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
                 </ReleaseDate>
                 <Overview>
-                    {overview ? overview.slice(0, 110) : overview}
+                    {overview ? overview.slice(0, 100) : overview}
                     {"..."}
                 </Overview>
                 <Info>
