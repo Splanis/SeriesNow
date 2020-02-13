@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
 import Header from "../../Header/Header";
+import Spinner from "../../sharedStyles/Spinner";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
 
 const Shows: React.FC = () => {
-    const { shows, setShows, page, setPage, query, sort, showType, setSort } = useShows();
+    const { shows, setShows, page, setPage, query, sort, showType, setSort, loading, setLoading } = useShows();
 
     const API_KEY = `98b9ebfd32ac53d37febef32464f8607`;
     const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
@@ -29,29 +30,12 @@ const Shows: React.FC = () => {
         const response = await fetch(FETCH_URL);
         const fetchedShows = await response.json();
 
-        // const showsData = data.results.map((show: IShow) => ({
-        //     adult: show.adult,
-        //     backdrop_path: show.backdrop_path,
-        //     title: show.title,
-        //     id: show.id,
-        //     popularity: show.popularity,
-        //     vote_count: show.vote_count,
-        //     video: show.video,
-        //     poster_path: show.poster_path,
-        //     original_language: show.original_language,
-        //     original_name: show.original_name,
-        //     genre_ids: show.genre_ids,
-        //     vote_average: show.vote_average,
-        //     overview: show.overview,
-        //     release_date: show.release_date,
-        //     first_air_date: show.first_air_date
-        // }));
-
         if (page === 1) {
             setShows(fetchedShows.results);
         } else {
             setShows([...shows, ...fetchedShows.results]);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -74,6 +58,9 @@ const Shows: React.FC = () => {
         setSort("popularity.desc");
     }, [setSort]);
 
+    if (loading){
+        return <Spinner />
+    }
     return (
         <ShowsContainer>
             {!query ? <Header /> : null}
@@ -110,7 +97,7 @@ const ShowsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    padding: 10px;
 `;
 
 const ShowsCards = styled.div`

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TrendingShow from "./TrendingShow";
 import { useTrendingShows } from "../../context/TrendingShowContext";
-import { IShow } from "../../context/ShowContext";
+import Spinner from "../../sharedStyles/Spinner";
 
 import styled from "styled-components";
 
@@ -18,44 +18,8 @@ const Homepage: React.FC = () => {
         const movies_response = await fetch(API_MOVIES_URL);
         const movies_data = await movies_response.json();
 
-        const TVShowsData = tv_data.results.map((show: IShow) => ({
-            adult: show.adult,
-            backdrop_path: show.backdrop_path,
-            title: show.title,
-            id: show.id,
-            popularity: show.popularity,
-            vote_count: show.vote_count,
-            video: show.video,
-            poster_path: show.poster_path,
-            original_language: show.original_language,
-            original_name: show.original_name,
-            genre_ids: show.genre_ids,
-            vote_average: show.vote_average,
-            overview: show.overview,
-            release_date: show.release_date,
-            first_air_date: show.first_air_date
-        }));
-
-        const moviesData = movies_data.results.map((show: IShow) => ({
-            adult: show.adult,
-            backdrop_path: show.backdrop_path,
-            title: show.title,
-            id: show.id,
-            popularity: show.popularity,
-            vote_count: show.vote_count,
-            video: show.video,
-            poster_path: show.poster_path,
-            original_language: show.original_language,
-            original_name: show.original_name,
-            genre_ids: show.genre_ids,
-            vote_average: show.vote_average,
-            overview: show.overview,
-            release_date: show.release_date,
-            first_air_date: show.first_air_date
-        }));
-
-        setTVShows(TVShowsData.slice(0, 5));
-        setMovies(moviesData.slice(0, 5));
+        setTVShows(tv_data.results.slice(0, 4));
+        setMovies(movies_data.results.slice(0, 4));
         setLoading(false);
     };
 
@@ -63,6 +27,9 @@ const Homepage: React.FC = () => {
         fetchData();
     }, []);
 
+    if (loading) {
+        return <Spinner />;
+    }
     return (
         <TrendingContainer>
             <Trending>Trending TV shows</Trending>
@@ -117,7 +84,7 @@ const Homepage: React.FC = () => {
 
 const TrendingContainer = styled.div`
     height: 100vh;
-    padding-top: 10px;
+    padding-top: 50px;
 `;
 
 const ShowsCards = styled.div`
@@ -129,7 +96,7 @@ const ShowsCards = styled.div`
 
 const Trending = styled.h1`
     font-size: 2rem;
-    margin: 15px;
+    margin: 25px 25px 0 25px;
     display: flex;
 `;
 

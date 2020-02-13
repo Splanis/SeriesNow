@@ -33,6 +33,8 @@ interface IShowProviderProps {
     setShowType: (sort: "movie" | "tv") => void;
     page: number;
     setPage: (page: number) => void;
+    loading: boolean;
+    setLoading: (loading: boolean) => void;
 }
 
 export const ShowContext = createContext<IShowProviderProps>({} as IShowProviderProps);
@@ -43,6 +45,7 @@ export const ShowProvider = ({ children }: Props): JSX.Element => {
     const [query, setQuery] = useState<string>("");
     const [showType, setShowType] = useState<"movie" | "tv">("movie");
     const [page, setPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const providerValues: IShowProviderProps = {
         shows,
@@ -54,7 +57,9 @@ export const ShowProvider = ({ children }: Props): JSX.Element => {
         showType,
         setShowType,
         page,
-        setPage
+        setPage,
+        loading,
+        setLoading
     };
 
     return <ShowContext.Provider value={providerValues}>{children}</ShowContext.Provider>;
