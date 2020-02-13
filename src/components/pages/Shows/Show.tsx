@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { IShow } from "../../context/ShowContext";
 import { useShows } from "../../context/ShowContext";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import likeIcon from "../../../assets/icons/like.png";
 import likedIcon from "../../../assets/icons/liked.png";
 import watchlistIcon from "../../../assets/icons/watchlist.png";
 import addedWatchlistIcon from "../../../assets/icons/addedWatchlist.png";
 
-const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average }) => {
+const Show: React.FC<IShow> = ({ title, original_name, backdrop_path, overview, release_date, first_air_date, vote_average, id }) => {
     const { showType } = useShows();
     const [liked, setLike] = useState<boolean>(false);
     const [watchlist, setWatchlist] = useState<boolean>(false);
@@ -21,44 +22,53 @@ const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, re
     };
 
     return (
-        <ShowCard>
-            <Img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="" />
-            <ShowDetails>
-                <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
-                <ReleaseDate>
-                    {showType === "movie" ? "Released: " : "First Air Date: "}
-                    {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
-                </ReleaseDate>
-                <Overview>
-                    {overview ? overview.slice(0, 100) : overview}
-                    {"..."}
-                </Overview>
-                <Info>
-                    <Rating>
-                        Rating:{" "}
-                        <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
-                    </Rating>
-                    <Buttons>
-                        <Button onClick={handleWatchlist}>
-                            <img src={watchlist ? addedWatchlistIcon : watchlistIcon} alt="" />
-                        </Button>
-                        <Button onClick={handleLike}>
-                            <img src={liked ? likedIcon : likeIcon} alt="" />
-                        </Button>
-                    </Buttons>
-                </Info>
-            </ShowDetails>
-        </ShowCard>
+        <StyledLink to={`/${showType}/${id}`}>
+            <ShowCard>
+                <Img src={`https://image.tmdb.org/t/p/w300${backdrop_path}`} alt="" />
+                <ShowDetails>
+                    <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
+                    <ReleaseDate>
+                        {showType === "movie" ? "Released: " : "First Air Date: "}
+                        {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
+                    </ReleaseDate>
+                    <Overview>
+                        {overview ? overview.slice(0, 100) : overview}
+                        {"..."}
+                    </Overview>
+                    <Info>
+                        <Rating>
+                            Rating:{" "}
+                            <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>
+                                {vote_average}
+                            </span>
+                        </Rating>
+                        <Buttons>
+                            <Button onClick={handleWatchlist}>
+                                <img src={watchlist ? addedWatchlistIcon : watchlistIcon} alt="" />
+                            </Button>
+                            <Button onClick={handleLike}>
+                                <img src={liked ? likedIcon : likeIcon} alt="" />
+                            </Button>
+                        </Buttons>
+                    </Info>
+                </ShowDetails>
+            </ShowCard>
+        </StyledLink>
     );
 };
+
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+`;
 
 const ShowCard = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 300px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     margin: 10px;
     border-radius: 3px;
     box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
@@ -67,7 +77,7 @@ const ShowCard = styled.div`
 
 const Img = styled.img`
     width: 100%;
-    height: 420px;
+    height: 220px;
     border-radius: 3px;
 `;
 
@@ -80,7 +90,7 @@ const ShowDetails = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     flex: 2;
     display: flex;
     align-items: center;
