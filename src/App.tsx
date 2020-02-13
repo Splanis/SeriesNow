@@ -1,31 +1,38 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from "react-router-dom";
-import Homepage from "./components/pages/Homepage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Homepage from "./components/pages/Homepage/Homepage";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Shows from "./components/pages/Shows/Shows";
-import Error404 from "./components/pages/Error404";
+import Error404 from "./components/pages/Error404/Error404";
+import ShowDetail from "./components/pages/ShowDetail/ShowDetail";
 import styled from "styled-components";
 import GlobalStyles from "./components/sharedStyles/GlobalStyles";
 import { ShowProvider } from "./components/context/ShowContext";
+import { TrendingShowProvider } from "./components/context/TrendingShowContext";
+
 
 const App: React.FC = () => {
     return (
         <div>
             <ShowProvider>
+                <TrendingShowProvider>
                 <Router>
                     <GlobalStyles />
                     <Navbar />
                     <Container>
                         <Switch>
                             <Route exact path="/" component={Homepage} />
-                            <Route exact path="/series" component={Shows} />
-                            <Route exact path="/movies" component={Shows} />
+                            <Route exact path="/tv" component={Shows} />
+                            <Route exact path="/movie" component={Shows} />
+                            <Route exact path="/:showType/:id" component={ShowDetail} />
+                            <Route exact path="/:showType/:id" component={ShowDetail} />
                             <Route component={Error404} />
                         </Switch>
                     </Container>
                     <Footer />
                 </Router>
+                </TrendingShowProvider>
             </ShowProvider>
         </div>
     );
