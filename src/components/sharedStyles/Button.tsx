@@ -12,4 +12,8 @@ export const Button = styled.button`
         cursor: pointer;
         background-color: #333333;
     }
+
+    &:focus {
+        outline: none;
+    }
 `;
