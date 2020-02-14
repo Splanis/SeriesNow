@@ -61,6 +61,9 @@ const Shows: React.FC = () => {
     if (loading) {
         return <Spinner />;
     }
+    if (shows.length === 0) {
+        return <Paragraph>No Shows Found</Paragraph>;
+    }
     return (
         <ShowsContainer>
             {!query ? <Header /> : null}
@@ -86,7 +89,7 @@ const Shows: React.FC = () => {
                     />
                 ))}
             </ShowsCards>
-            <ScrollDown>Scroll down to see more {showType === "movie" ? "movies" : "TV shows"}</ScrollDown>
+            <Paragraph>Scroll down to see more {showType === "movie" ? "movies" : "TV shows"}</Paragraph>
             <BottomScrollListener onBottom={handlePage} />
         </ShowsContainer>
     );
@@ -106,7 +109,7 @@ const ShowsCards = styled.div`
     justify-content: center;
 `;
 
-const ScrollDown = styled.p`
+const Paragraph = styled.p`
     font-size: 1.4rem;
     margin: 10px;
 `;
