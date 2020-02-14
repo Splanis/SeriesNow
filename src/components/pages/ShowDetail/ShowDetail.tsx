@@ -13,6 +13,7 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
     const [showDetails, setShowDetails] = useState<IShow>({} as IShow);
     const [youtubeID, setYoutubeID] = useState<string>("");
     const { original_name, title, poster_path, overview, release_date, first_air_date, vote_average } = showDetails;
+
     const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${API_KEY}&language=en-US`;
 
     const fetchData = async () => {
@@ -23,7 +24,7 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
         const YOUTUBE_QUERY_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}%20trailer&key=${YOUTUBE_API_KEY}`;
         const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
         const youtubeData = await youtubeResponse.json();
-        setYoutubeID(youtubeData.items[0].id.videoId)
+        setYoutubeID(youtubeData.items[0].id.videoId);
     };
 
     useEffect(() => {
@@ -38,6 +39,17 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
                     {original_name}
                     {title}
                 </Title>
+                <Info>
+                    <ReleaseDate>
+                        {match.params["showType"] === "movie" ? "Released: " : "First Air Date: "}
+                        {release_date}
+                        {first_air_date}
+                    </ReleaseDate>
+                    <Rating>
+                        Rating:{" "}
+                        <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
+                    </Rating>
+                </Info>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                 <Trailer
@@ -49,24 +61,13 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
                 ></Trailer>
                 <Overview>{overview}</Overview>
             </div>
-
-            {/* <Info>
-                <ReleaseDate>
-                    {release_date}
-                    {first_air_date}
-                </ReleaseDate>
-                <Rating>
-                    Rating:{" "}
-                    <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
-                </Rating>
-            </Info> */}
         </ShowDetailContainer>
     );
 };
 
 const ShowDetailContainer = styled.div`
-    height: 100vh;
-    padding: 20px 200px;
+    padding: 80px 0 20px 0;
+    margin: 0 200px;
     display: flex;
     justify-content: space-between;
 `;
@@ -96,6 +97,7 @@ const Trailer = styled.iframe``;
 
 const Info = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `;
