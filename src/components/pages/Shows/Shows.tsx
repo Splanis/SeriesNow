@@ -6,13 +6,13 @@ import Spinner from "../../sharedStyles/Spinner";
 import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
-import { API_KEY } from "../../../API/ApiKeys";
+import { TMDb_API_KEY } from "../../../API/ApiKeys";
 
 const Shows: React.FC = () => {
     const { shows, setShows, page, setPage, query, sort, showType, setSort, loading, setLoading } = useShows();
 
-    const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
-    const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${API_KEY}&language=en-US&query=${query}&include_adult=false&page=${page}`;
+    const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${TMDb_API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
+    const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${TMDb_API_KEY}&language=en-US&query=${query}&include_adult=false&page=${page}`;
     let FETCH_URL = "";
 
     const handlePage = () => {

@@ -3,15 +3,15 @@ import TrendingShow from "./TrendingShow";
 import { useTrendingShows } from "../../context/TrendingShowContext";
 import Spinner from "../../sharedStyles/Spinner";
 import { Container } from "../../sharedStyles/Container";
-import { API_KEY } from "../../../API/ApiKeys";
+import { TMDb_API_KEY } from "../../../API/ApiKeys";
 
 import styled from "styled-components";
 
 const Homepage: React.FC = () => {
     const { TVShows, setTVShows, movies, setMovies, loading, setLoading } = useTrendingShows();
 
-    const API_TVSHOWS_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${API_KEY}`;
-    const API_MOVIES_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
+    const API_TVSHOWS_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${TMDb_API_KEY}`;
+    const API_MOVIES_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${TMDb_API_KEY}`;
 
     const fetchData = async () => {
         const tv_response = await fetch(API_TVSHOWS_URL);

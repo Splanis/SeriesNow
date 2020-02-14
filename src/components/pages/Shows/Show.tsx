@@ -146,6 +146,6 @@ const Button = styled.button`
     }
 `;
 
-const AddToWatchList = styled.button``;
+// const AddToWatchList = styled.button``;
 
 export default Show;

@@ -1,7 +1,8 @@
 import firebase from "firebase";
+import { FIREBASE_API_KEY } from "../API/ApiKeys"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBS2A1doB6z-H_PIJUeo3PRqCGhrQA7XZg",
+    apiKey: FIREBASE_API_KEY,
     authDomain: "seriesnow.firebaseapp.com",
     databaseURL: "https://seriesnow.firebaseio.com",
     projectId: "seriesnow",

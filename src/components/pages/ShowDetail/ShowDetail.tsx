@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { IShow } from "../../context/ShowContext";
 import styled from "styled-components";
-import { API_KEY, YOUTUBE_API_KEY } from "../../../API/ApiKeys";
+import { TMDb_API_KEY, YOUTUBE_API_KEY } from "../../../API/ApiKeys";
 
 type MatchType = {
     id: string;
@@ -14,7 +14,7 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
     const [youtubeID, setYoutubeID] = useState<string>("");
     const { original_name, title, poster_path, overview, release_date, first_air_date, vote_average } = showDetails;
 
-    const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${API_KEY}&language=en-US`;
+    const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${TMDb_API_KEY}&language=en-US`;
 
     const fetchData = async () => {
         const response = await fetch(API_URL);
