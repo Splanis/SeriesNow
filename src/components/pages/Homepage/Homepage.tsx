@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TrendingShow from "./TrendingShow";
 import { useTrendingShows } from "../../context/TrendingShowContext";
 import Spinner from "../../sharedStyles/Spinner";
+import { API_KEY } from "../../../API/ApiKeys";
 
 import styled from "styled-components";
 
 const Homepage: React.FC = () => {
     const { TVShows, setTVShows, movies, setMovies, loading, setLoading } = useTrendingShows();
 
-    const API_KEY = `98b9ebfd32ac53d37febef32464f8607`;
     const API_TVSHOWS_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${API_KEY}`;
     const API_MOVIES_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { IShow } from "../../context/ShowContext";
 import styled from "styled-components";
+import { API_KEY, YOUTUBE_API_KEY } from "../../../API/ApiKeys";
 
 type MatchType = {
     id: string;
@@ -12,8 +13,6 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
     const [showDetails, setShowDetails] = useState<IShow>({} as IShow);
     const [youtubeID, setYoutubeID] = useState<string>("");
     const { original_name, title, poster_path, overview, release_date, first_air_date, vote_average } = showDetails;
-    const YOUTUBE_API_KEY = `AIzaSyBt-kwCm9TLwIzGDXdPncSLREr-zlZsL2s`;
-    const API_KEY = `98b9ebfd32ac53d37febef32464f8607`;
     const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${API_KEY}&language=en-US`;
 
     const fetchData = async () => {
@@ -22,9 +21,9 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
         setShowDetails(showData);
         const query = `${showData.name ? showData.name : ""}${showData.title ? showData.title : ""} trailer`;
         const YOUTUBE_QUERY_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}%20trailer&key=${YOUTUBE_API_KEY}`;
-        // const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
-        // const youtubeData = await youtubeResponse.json();
-        // setYoutubeID(youtubeData.items[0].id.videoId)
+        const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
+        const youtubeData = await youtubeResponse.json();
+        setYoutubeID(youtubeData.items[0].id.videoId)
     };
 
     useEffect(() => {

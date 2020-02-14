@@ -5,11 +5,11 @@ import Header from "../../Header/Header";
 import Spinner from "../../sharedStyles/Spinner";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
+import { API_KEY } from "../../../API/ApiKeys";
 
 const Shows: React.FC = () => {
     const { shows, setShows, page, setPage, query, sort, showType, setSort, loading, setLoading } = useShows();
 
-    const API_KEY = `98b9ebfd32ac53d37febef32464f8607`;
     const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
     const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${API_KEY}&language=en-US&query=${query}&include_adult=false&page=${page}`;
     let FETCH_URL = "";
@@ -58,8 +58,8 @@ const Shows: React.FC = () => {
         setSort("popularity.desc");
     }, [setSort]);
 
-    if (loading){
-        return <Spinner />
+    if (loading) {
+        return <Spinner />;
     }
     return (
         <ShowsContainer>
