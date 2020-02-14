@@ -45,7 +45,6 @@ const App: React.FC = () => {
 };
 
 const Container = styled.div`
-    padding-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;

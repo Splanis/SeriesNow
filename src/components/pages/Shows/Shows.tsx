@@ -3,6 +3,7 @@ import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
 import Header from "../../Header/Header";
 import Spinner from "../../sharedStyles/Spinner";
+import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
 import { API_KEY } from "../../../API/ApiKeys";
@@ -95,12 +96,8 @@ const Shows: React.FC = () => {
     );
 };
 
-const ShowsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+const ShowsContainer = styled(Container)`
+    padding: 80px 10px 10px 10px;
 `;
 
 const ShowsCards = styled.div`

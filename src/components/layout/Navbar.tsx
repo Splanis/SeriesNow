@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useShows } from "../context/ShowContext";
+import { Input } from "../sharedStyles/Form";
 import { useUser } from "../context/UserContext";
 import { fireLogout } from "../../firebase/auth";
 
@@ -24,12 +25,14 @@ const Movies: React.FC = () => {
     return (
         <Nav>
             <Logo>
-                <StyledLink to="/">Logo</StyledLink>
+                <LogoLink to="/">
+                    Series<span style={{ color: "red" }}>NOW</span>
+                </LogoLink>
             </Logo>
 
-            <Form>
+            <form>
                 <Input type="text" value={query} placeholder="Search..." onChange={queryHandle} />
-            </Form>
+            </form>
 
             <Links>
                 <StyledLink
@@ -85,27 +88,24 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.div`
-    width: 480px;
+    margin-left: 10px;
+`;
+
+const LogoLink = styled(Link)`
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 3rem;
 `;
 
 const StyledLink = styled(Link)`
     color: white;
-    width: 160px;
+    width: 120px;
     display: flex;
     justify-content: center;
     text-decoration: none;
-    font-size: 1.5rem;
-`;
-
-const Form = styled.form``;
-
-const Input = styled.input`
-    color: white;
-    background: rgba(0, 0, 0, 0.7);
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 `;
 
 const Links = styled.div`
@@ -118,8 +118,7 @@ const DropdownItems = styled.div`
     background: rgba(0, 0, 0, 0.8);
     display: none;
     flex-direction: column;
-    min-width: 160px;
-
+    min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 `;
 
@@ -135,8 +134,8 @@ const Dropdown = styled.div`
 `;
 
 const User = styled.p`
-    font-size: 1.5rem;
-    width: 160px;
+    font-size: 1.2rem;
+    width: 120px;
     height: 70px;
     display: flex;
     justify-content: center;
@@ -146,7 +145,7 @@ const User = styled.p`
 `;
 
 const DropDownButtons = styled.button`
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     border: none;
     background: none;
     color: white;

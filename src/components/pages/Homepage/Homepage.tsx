@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import TrendingShow from "./TrendingShow";
 import { useTrendingShows } from "../../context/TrendingShowContext";
 import Spinner from "../../sharedStyles/Spinner";
+import { Container } from "../../sharedStyles/Container";
 import { API_KEY } from "../../../API/ApiKeys";
 
 import styled from "styled-components";
@@ -31,7 +32,7 @@ const Homepage: React.FC = () => {
         return <Spinner />;
     }
     return (
-        <TrendingContainer>
+        <Container>
             <Trending>Trending TV shows</Trending>
             <ShowsCards>
                 {TVShows.map(show => (
@@ -78,14 +79,9 @@ const Homepage: React.FC = () => {
                     />
                 ))}
             </ShowsCards>
-        </TrendingContainer>
+        </Container>
     );
 };
-
-const TrendingContainer = styled.div`
-    height: 100vh;
-    padding-top: 50px;
-`;
 
 const ShowsCards = styled.div`
     display: flex;
@@ -97,7 +93,7 @@ const ShowsCards = styled.div`
 const Trending = styled.h1`
     font-size: 2rem;
     margin: 25px 25px 0 25px;
-    display: flex;
+    align-self: flex-start;
 `;
 
 export default Homepage;

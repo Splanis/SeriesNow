@@ -17,3 +17,9 @@ export const Button = styled.button`
         outline: none;
     }
 `;
+
+export const Buttons = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
