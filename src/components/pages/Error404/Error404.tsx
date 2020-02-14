@@ -1,24 +1,20 @@
 import React from "react";
+import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 
 const Error404: React.FC = () => {
     return (
-        <Section>
+        <StyledContainer>
             <h1>Error 404 :(</h1>
-            <p>Page not found.</p>
-        </Section>
+            <p>Page not found</p>
+        </StyledContainer>
     );
 };
 
-const Section = styled.section`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    h1,p {
-        font-size:3rem;
+const StyledContainer = styled(Container)`
+    h1,
+    p {
+        font-size: 3rem;
     }
 `;
 
