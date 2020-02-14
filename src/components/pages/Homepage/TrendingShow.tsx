@@ -25,7 +25,7 @@ const TrendingShow: React.FC<IShow> = ({
         <div>
             <StyledLink to={`/${showType}/${id}`}>
                 <ShowCard>
-                    <Poster src={`https://image.tmdb.org/t/p/w300${backdrop_path}`} alt="" />
+                    <Poster src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} alt="" />
                     <ShowDetails>
                         <Title>
                             {original_name}
@@ -65,7 +65,7 @@ const ShowCard = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     width: 400px;
-    height: 250px;
+    height: 220px;
     margin: 25px;
     border-radius: 3px;
     box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
