@@ -3,7 +3,16 @@ import { IShow } from "../../context/ShowContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const TrendingShow: React.FC<IShow> = ({ title, original_name, backdrop_path, overview, release_date, first_air_date, vote_average, id }) => {
+const TrendingShow: React.FC<IShow> = ({
+    title,
+    original_name,
+    backdrop_path,
+    overview,
+    release_date,
+    first_air_date,
+    vote_average,
+    id
+}) => {
     let showType;
 
     if (title) {
@@ -66,7 +75,7 @@ const ShowCard = styled.div`
     &:hover {
         transform: scale(1.2);
         z-index: 10;
-        
+
         img {
             filter: blur(22px);
             filter: brightness(20%);
@@ -124,35 +133,12 @@ const Info = styled.div`
     align-items: center;
 `;
 
-const Buttons = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
 const Rating = styled.p`
     font-weight: 600;
     font-size: 1.3rem;
 
     span {
         font-size: 1.3rem;
-    }
-`;
-
-const Button = styled.button`
-    border: none;
-    background: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 15px;
-
-    img {
-        height: 30px;
-
-        &:hover {
-            cursor: pointer;
-        }
     }
 `;
 
