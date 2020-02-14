@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useShows } from "../context/ShowContext";
 import { Input } from "../sharedStyles/Form";
 import { useUser } from "../context/UserContext";
-import { fireLogout } from "../../firebase/auth";
+import fire from "../../firebase/firebase";
 
 const Movies: React.FC = () => {
     const { user, setUser } = useUser();
@@ -14,7 +14,7 @@ const Movies: React.FC = () => {
     };
 
     const Logout = () => {
-        fireLogout();
+        fire.auth().signOut();
         setUser(null);
     };
 
