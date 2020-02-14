@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useShows } from "../../context/ShowContext";
 import Show from "./Show";
-import Header from "../../Header/Header";
+import Header from "./header/Header";
 import Spinner from "../../sharedStyles/Spinner";
 import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";

@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Filter: React.FC = () => {
-
-    return (
-        <FilterContainer>        
-        </FilterContainer>
-    );
+    return <FilterContainer></FilterContainer>;
 };
 
 const FilterContainer = styled.div`
