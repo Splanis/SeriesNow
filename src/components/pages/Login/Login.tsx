@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
+import { Link, Redirect } from "react-router-dom";
 import fire from "../../../firebase/firebase";
+import { Button, Buttons } from "../../sharedStyles/Button";
+import { Form, Input } from "../../sharedStyles/Form";
+import { Errors } from "../../sharedStyles/Errors";
+import { Title } from "../../sharedStyles/Title";
+import { Container } from "../../sharedStyles/Container";
+import styled from "styled-components";
 
 const Login = () => {
-    const { setUser } = useUser();
+    const { user, setUser } = useUser();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -12,8 +19,8 @@ const Login = () => {
         e.preventDefault();
         fire.auth()
             .signInWithEmailAndPassword(email, password)
-            .then(u => {
-                setUser({ email: u.user?.email, username: u.user?.displayName, uid: u.user?.uid });
+            .then(User => {
+                setUser({ email: User.user?.email, username: User.user?.displayName, uid: User.user?.uid });
                 setError("");
             })
             .catch(er => {
@@ -24,31 +31,45 @@ const Login = () => {
         setPassword("");
     };
 
+    if (user) {
+        return <Redirect to="/" />;
+    }
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={onLogin} style={{ display: "flex", flexDirection: "column" }}>
-                <label>Email</label>
-                <input
+        <Container>
+            <Title>Login</Title>
+            <Form onSubmit={onLogin}>
+                <Input
                     type="text"
                     value={email}
+                    placeholder="Email"
                     onChange={e => {
                         setEmail(e.target.value);
                     }}
-                />{" "}
-                <label>Password</label>
-                <input
+                />
+
+                <Input
                     type="password"
                     value={password}
+                    placeholder="Password"
                     onChange={e => {
                         setPassword(e.target.value);
                     }}
                 />
-                <button type="submit">Login</button>
-                {error ? <p>{error}</p> : ""}
-            </form>
-        </div>
+                <Buttons>
+                    <StyledButton type="submit">Login</StyledButton>
+                    <Link to="/register">
+                        <StyledButton type="submit">Register</StyledButton>
+                    </Link>
+                </Buttons>
+
+                {error ? <Errors>{error}</Errors> : ""}
+            </Form>
+        </Container>
     );
 };
+
+const StyledButton = styled(Button)`
+    width: 100px;
+`;
 
 export default Login;

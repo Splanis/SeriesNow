@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import fire from "../../../firebase/firebase";
+import { Redirect } from "react-router-dom";
+import { Button, Buttons } from "../../sharedStyles/Button";
+import { Form, Input } from "../../sharedStyles/Form";
+import { Errors } from "../../sharedStyles/Errors";
+import { Title } from "../../sharedStyles/Title";
+import { Container } from "../../sharedStyles/Container";
+import styled from "styled-components";
 
 const Register = () => {
-    const { setUser } = useUser();
+    const { user, setUser } = useUser();
     const [email, setEmail] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -15,65 +22,77 @@ const Register = () => {
         if (password === password2) {
             fire.auth()
                 .createUserWithEmailAndPassword(email, password)
-                .then(u => {
-                    setUser({ email: u.user?.email, username: u.user?.displayName, uid: u.user?.uid });
-                    setError("");
-                    var c_user = fire.auth().currentUser;
-                    c_user?.updateProfile({
+                .then(User => {
+                    setUser({ email: User.user?.email, username: User.user?.displayName, uid: User.user?.uid });
+                    fire.auth().currentUser?.updateProfile({
                         displayName: username
                     });
-                    setEmail("");
-                    setPassword("");
+                    setError("");
                 })
                 .catch(er => {
                     setError(er.code);
                 });
+
+            setEmail("");
+            setUsername("");
+            setPassword("");
+            setPassword2("");
         } else {
             setError("auth/passwords-do-not-match");
         }
     };
 
+    if (user) {
+        return <Redirect to="/" />;
+    }
     return (
-        <div>
-            <h1>Register</h1>
-            <form onSubmit={Register} style={{ display: "flex", flexDirection: "column" }}>
-                <label>Email</label>
-                <input
+        <Container>
+            <Title>Register</Title>
+            <Form onSubmit={Register} style={{ display: "flex", flexDirection: "column" }}>
+                <Input
                     type="text"
                     value={email}
+                    placeholder="Email"
                     onChange={e => {
                         setEmail(e.target.value);
                     }}
                 />
-                <label>Username</label>
-                <input
+                <Input
                     type="text"
                     value={username}
+                    placeholder="Username"
                     onChange={e => {
                         setUsername(e.target.value);
                     }}
                 />
-                <label>Password</label>
-                <input
+                <Input
                     type="password"
                     value={password}
+                    placeholder="Password"
                     onChange={e => {
                         setPassword(e.target.value);
                     }}
                 />
-                <label>Password2</label>
-                <input
+                <Input
                     type="password"
                     value={password2}
+                    placeholder="Type Password Again"
                     onChange={e => {
                         setPassword2(e.target.value);
                     }}
                 />
-                <button type="submit">Register</button>
-                {error ? <p>{error}</p> : ""}
-            </form>
-        </div>
+                <Buttons>
+                    <StyledButton type="submit">Register</StyledButton>
+                </Buttons>
+
+                {error ? <Errors>{error}</Errors> : ""}
+            </Form>
+        </Container>
     );
 };
+
+const StyledButton = styled(Button)`
+    width: 100px;
+`;
 
 export default Register;
