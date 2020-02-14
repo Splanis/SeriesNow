@@ -77,7 +77,6 @@ const ShowCard = styled.div`
         z-index: 10;
 
         img {
-            filter: blur(22px);
             filter: brightness(20%);
         }
 
