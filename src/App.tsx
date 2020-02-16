@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Homepage from "./components/pages/Homepage/Homepage";
 import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer";
@@ -33,7 +33,10 @@ const App: React.FC = () => {
                                     <Route exact path="/profile/:id" component={Profile} />
                                     <Route exact path="/login" component={Login} />
                                     <Route exact path="/register" component={Register} />
-                                    <Route component={Error404} />
+                                    <Route exact path="/error404" component={Error404}></Route>
+                                    <Route>
+                                        <Redirect to="/error404" />
+                                    </Route>
                                 </Switch>
                             </Container>
                             <Footer />

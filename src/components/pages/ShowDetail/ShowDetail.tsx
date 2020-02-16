@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Redirect } from "react-router-dom";
 import { IShow } from "../../context/ShowContext";
+import Spinner from "../../sharedStyles/Spinner";
 import styled from "styled-components";
 
 type MatchType = {
@@ -11,25 +12,35 @@ type MatchType = {
 const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
     const [showDetails, setShowDetails] = useState<IShow>({} as IShow);
     const [youtubeID, setYoutubeID] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<boolean>(false);
     const { original_name, title, poster_path, overview, release_date, first_air_date, vote_average } = showDetails;
 
-    const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US`;
-
-    const fetchData = async () => {
-        const response = await fetch(API_URL);
-        const showData = await response.json();
-        setShowDetails(showData);
-        const query = `${showData.name ? showData.name : ""}${showData.title ? showData.title : ""} trailer`;
-        const YOUTUBE_QUERY_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}%20trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
-        const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
-        const youtubeData = await youtubeResponse.json();
-        setYoutubeID(youtubeData.items[0].id.videoId);
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US`;
+            const response = await fetch(API_URL);
+            const showData = await response.json();
+            if (showData.status_code === 34) {
+                setError(true);
+            }
+            setShowDetails(showData);
+            const query = `${showData.name ? showData.name : ""}${showData.title ? showData.title : ""} trailer`;
+            const YOUTUBE_QUERY_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}%20trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
+            const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
+            const youtubeData = await youtubeResponse.json();
+            setYoutubeID(youtubeData.items[0].id.videoId);
+            setLoading(false);
+        };
         fetchData();
-    }, []);
+    }, [match.params]);
 
+    if (loading) {
+        return <Spinner />;
+    }
+    if (error) {
+        return <Redirect to="/error404" />;
+    }
     return (
         <ShowDetailContainer>
             <div style={{ margin: "0 150px" }}>
