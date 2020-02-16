@@ -6,13 +6,12 @@ import Spinner from "../../sharedStyles/Spinner";
 import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
-import { TMDb_API_KEY } from "../../../API/ApiKeys";
 
 const Shows: React.FC = () => {
     const { shows, setShows, page, setPage, query, sort, showType, setSort, loading, setLoading } = useShows();
 
-    const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${TMDb_API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
-    const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${TMDb_API_KEY}&language=en-US&query=${query}&include_adult=false&page=${page}`;
+    const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}`;
+    const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US&query=${query}&include_adult=false&page=${page}`;
     let FETCH_URL = "";
 
     const handlePage = () => {
@@ -36,6 +35,7 @@ const Shows: React.FC = () => {
         } else {
             setShows([...shows, ...fetchedShows.results]);
         }
+
         setLoading(false);
     };
 
@@ -54,6 +54,10 @@ const Shows: React.FC = () => {
     useEffect(() => {
         fetchData();
     }, [sort, showType]);
+
+    useEffect(() => {
+        setLoading(true);
+    }, [showType]);
 
     useEffect(() => {
         setSort("popularity.desc");
@@ -90,7 +94,7 @@ const Shows: React.FC = () => {
                     />
                 ))}
             </ShowsCards>
-            <Paragraph>Scroll down to see more {showType === "movie" ? "movies" : "TV shows"}</Paragraph>
+            <Paragraph>Scroll down to see more {showType === "movie" ? "Movies" : "TV Shows"}</Paragraph>
             <BottomScrollListener onBottom={handlePage} />
         </ShowsContainer>
     );

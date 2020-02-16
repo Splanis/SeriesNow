@@ -1,8 +1,8 @@
 import firebase from "firebase";
-import { FIREBASE_API_KEY } from "../API/ApiKeys"
+import "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: FIREBASE_API_KEY,
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "seriesnow.firebaseapp.com",
     databaseURL: "https://seriesnow.firebaseio.com",
     projectId: "seriesnow",
@@ -13,6 +13,5 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const fire = firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 export default fire;
