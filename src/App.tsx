@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./components/pages/Homepage/Homepage";
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer";
 import Shows from "./components/pages/Shows/Shows";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
+import Profile from "./components/pages/Profile/Profile";
 import Error404 from "./components/pages/Error404/Error404";
 import ShowDetail from "./components/pages/ShowDetail/ShowDetail";
 import styled from "styled-components";
@@ -28,8 +29,8 @@ const App: React.FC = () => {
                                     <Route exact path="/" component={Homepage} />
                                     <Route exact path="/tv" component={Shows} />
                                     <Route exact path="/movie" component={Shows} />
-                                    <Route exact path="/:showType/:id" component={ShowDetail} />
-                                    <Route exact path="/:showType/:id" component={ShowDetail} />
+                                    <Route exact path="/showdetails/:showType/:id" component={ShowDetail} />
+                                    <Route exact path="/profile/:id" component={Profile} />
                                     <Route exact path="/login" component={Login} />
                                     <Route exact path="/register" component={Register} />
                                     <Route component={Error404} />
