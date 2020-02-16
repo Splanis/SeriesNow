@@ -23,7 +23,7 @@ const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, re
 
     return (
         <ShowCard>
-            <StyledLink to={`/${showType}/${id}`}>
+            <StyledLink to={`/showdetails/${showType}/${id}`}>
                 <Poster src={`https://image.tmdb.org/t/p/w400${poster_path}`} alt="" />
             </StyledLink>
             <ShowDetails>

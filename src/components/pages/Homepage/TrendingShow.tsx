@@ -23,7 +23,7 @@ const TrendingShow: React.FC<IShow> = ({
 
     return (
         <div>
-            <StyledLink to={`/${showType}/${id}`}>
+            <StyledLink to={`/showdetails/${showType}/${id}`}>
                 <ShowCard>
                     <Poster src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} alt="" />
                     <ShowDetails>
