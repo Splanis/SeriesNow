@@ -1,26 +1,19 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useShows } from "../context/ShowContext";
-import { Input } from "../sharedStyles/Form";
-import { useUser } from "../context/UserContext";
-import fire from "../../firebase/firebase";
+import { useShows } from "../../context/ShowContext";
+import { useUser } from "../../context/UserContext";
+import SearchBar from "./SearchBar";
+import fire from "../../../firebase/firebase";
+import styled from "styled-components";
 
 const Movies: React.FC = () => {
     const { user, setUser } = useUser();
-    const { query, setQuery, setPage, setShowType } = useShows();
-    const queryHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value);
-    };
+    const { setPage, setShowType } = useShows();
 
     const Logout = () => {
         fire.auth().signOut();
         setUser(null);
     };
-
-    useEffect(() => {
-        setPage(1);
-    }, [query, setPage]);
 
     return (
         <Nav>
@@ -30,9 +23,7 @@ const Movies: React.FC = () => {
                 </LogoLink>
             </Logo>
 
-            <form>
-                <Input type="text" value={query} placeholder="Search..." onChange={queryHandle} />
-            </form>
+            <SearchBar />
 
             <Links>
                 <StyledLink
@@ -59,7 +50,10 @@ const Movies: React.FC = () => {
                     <Dropdown>
                         <User>{user.username}</User>
                         <DropdownItems>
-                            <DropDownButtons>Profile</DropDownButtons>
+                            <DropDownButtons>WhatchList</DropDownButtons>
+                            <Link to={`/profile/${user.username}`}>
+                                <DropDownButtons>Profile</DropDownButtons>
+                            </Link>
                             <DropDownButtons onClick={Logout}>Logout</DropDownButtons>
                         </DropdownItems>
                     </Dropdown>
