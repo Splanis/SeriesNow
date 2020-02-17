@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Input } from "../../sharedStyles/Form";
 import { useShows } from "../../context/ShowContext";
 
 const SearchBar = () => {
-    const { query, setQuery, setPage } = useShows();
-    useEffect(() => {
-        setPage(1);
-    }, [query, setPage]);
+    const { query, setQuery } = useShows();
 
     return (
         <form>
