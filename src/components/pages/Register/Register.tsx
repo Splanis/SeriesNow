@@ -10,7 +10,7 @@ import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 
 const Register = () => {
-    const { user, setUser } = useUser();
+    const { user } = useUser();
     const [email, setEmail] = useState<string>("");
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -52,7 +52,8 @@ const Register = () => {
                     type="text"
                     value={email}
                     placeholder="Email"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setEmail(e.target.value);
                     }}
                 />
@@ -60,7 +61,8 @@ const Register = () => {
                     type="text"
                     value={username}
                     placeholder="Username"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setUsername(e.target.value);
                     }}
                 />
@@ -68,7 +70,8 @@ const Register = () => {
                     type="password"
                     value={password}
                     placeholder="Password"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setPassword(e.target.value);
                     }}
                 />
@@ -76,16 +79,16 @@ const Register = () => {
                     type="password"
                     value={password2}
                     placeholder="Type Password Again"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setPassword2(e.target.value);
                     }}
                 />
                 <Buttons>
                     <StyledButton type="submit">Register</StyledButton>
                 </Buttons>
-
-                {error ? <Errors>{error}</Errors> : ""}
             </Form>
+            {error && <Errors>{error}</Errors>}
         </Container>
     );
 };

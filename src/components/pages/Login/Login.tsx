@@ -10,7 +10,7 @@ import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 
 const Login = () => {
-    const { user, } = useUser();
+    const { user } = useUser();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -41,7 +41,8 @@ const Login = () => {
                     type="text"
                     value={email}
                     placeholder="Email"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setEmail(e.target.value);
                     }}
                 />
@@ -50,7 +51,8 @@ const Login = () => {
                     type="password"
                     value={password}
                     placeholder="Password"
-                    onChange={e => {
+                    required
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setPassword(e.target.value);
                     }}
                 />
@@ -60,9 +62,8 @@ const Login = () => {
                         <StyledButton type="submit">Register</StyledButton>
                     </Link>
                 </Buttons>
-
-                {error ? <Errors>{error}</Errors> : ""}
             </Form>
+            {error && <Errors>{error}</Errors>}
         </Container>
     );
 };
