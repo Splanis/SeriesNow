@@ -18,6 +18,10 @@ export const Button = styled.button`
     }
 `;
 
+export const ActiveButton = styled(Button)`
+    background: #333333;
+`;
+
 export const Buttons = styled.div`
     display: flex;
     justify-content: center;
