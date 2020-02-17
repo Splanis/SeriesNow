@@ -22,8 +22,7 @@ const Register = () => {
         if (password === password2) {
             fire.auth()
                 .createUserWithEmailAndPassword(email, password)
-                .then(User => {
-                    setUser({ email: User.user?.email, username: User.user?.displayName, uid: User.user?.uid });
+                .then(() => {
                     fire.auth().currentUser?.updateProfile({
                         displayName: username
                     });

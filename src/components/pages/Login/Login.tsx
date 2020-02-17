@@ -10,7 +10,7 @@ import { Container } from "../../sharedStyles/Container";
 import styled from "styled-components";
 
 const Login = () => {
-    const { user, setUser } = useUser();
+    const { user, } = useUser();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -19,8 +19,7 @@ const Login = () => {
         e.preventDefault();
         fire.auth()
             .signInWithEmailAndPassword(email, password)
-            .then(User => {
-                setUser({ email: User.user?.email, username: User.user?.displayName, uid: User.user?.uid });
+            .then(() => {
                 setError("");
             })
             .catch(er => {
