@@ -68,7 +68,7 @@ const ShowCard = styled.div`
     height: 220px;
     margin: 25px;
     border-radius: 3px;
-    box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
+    box-shadow: 1px 1px 5px #111;
     transition: all 0.2s ease-in-out;
     position: relative;
 
