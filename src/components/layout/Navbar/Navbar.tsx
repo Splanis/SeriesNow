@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { useShows } from "../../context/ShowContext";
 import { useUser } from "../../context/UserContext";
 import SearchBar from "./SearchBar";
+import MainLogo from "./MainLogo";
 import fire from "../../../firebase/firebase";
 import styled from "styled-components";
 
 const Movies: React.FC = () => {
     const { user, setUser } = useUser();
-    const { setPage, setShowType } = useShows();
+    const { setPage, setShowType, setSort } = useShows();
 
     const Logout = () => {
         fire.auth().signOut();
@@ -17,11 +18,9 @@ const Movies: React.FC = () => {
 
     return (
         <Nav>
-            <Logo>
-                <LogoLink to="/">
-                    Series<span style={{ color: "red" }}>NOW</span>
-                </LogoLink>
-            </Logo>
+            <LogoLink to="/">
+                <MainLogo />
+            </LogoLink>
 
             <SearchBar />
 
@@ -30,6 +29,7 @@ const Movies: React.FC = () => {
                     to="/tv"
                     onClick={() => {
                         setShowType("tv");
+                        setSort("popularity.desc");
                         setPage(1);
                         window.scrollTo(0, 0);
                     }}
@@ -40,6 +40,7 @@ const Movies: React.FC = () => {
                     to="/movie"
                     onClick={() => {
                         setShowType("movie");
+                        setSort("popularity.desc");
                         setPage(1);
                         window.scrollTo(0, 0);
                     }}
@@ -51,9 +52,9 @@ const Movies: React.FC = () => {
                         <User>{user.username}</User>
                         <DropdownItems>
                             <DropDownButtons>WhatchList</DropDownButtons>
-                            <Link to={`/profile/${user.username}`}>
+                            <StyledLink to={`/profile/${user.username}`}>
                                 <DropDownButtons>Profile</DropDownButtons>
-                            </Link>
+                            </StyledLink>
                             <DropDownButtons onClick={Logout}>Logout</DropDownButtons>
                         </DropdownItems>
                     </Dropdown>
@@ -77,12 +78,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 10px;
     z-index: 10;
-`;
-
-const Logo = styled.div`
-    margin-left: 10px;
 `;
 
 const LogoLink = styled(Link)`
