@@ -15,7 +15,7 @@ export interface IShow {
     video: boolean;
     poster_path: string;
     original_language: string;
-    genre_ids: [number];
+    genre_ids: number[];
     vote_average: number;
     overview: string;
     release_date: string;
