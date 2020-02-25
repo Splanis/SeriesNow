@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps, Redirect } from "react-router-dom";
-import { IShow } from "../../context/ShowContext";
 import Spinner from "../../sharedStyles/Spinner";
 import styled from "styled-components";
 
@@ -9,26 +8,44 @@ type MatchType = {
     showType: string;
 };
 
+interface IShowDetails {
+    title: string;
+    poster_path: string;
+    overview: string;
+    first_air_date: string;
+    vote_average: number;
+}
+
 const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
-    const [showDetails, setShowDetails] = useState<IShow>({} as IShow);
+    const [showDetails, setShowDetails] = useState<IShowDetails>({} as IShowDetails);
     const [youtubeID, setYoutubeID] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<boolean>(false);
-    const { original_name, title, poster_path, overview, release_date, first_air_date, vote_average } = showDetails;
+    const { title, poster_path, overview, first_air_date, vote_average } = showDetails;
 
     useEffect(() => {
         const fetchData = async () => {
             const API_URL = `https://api.themoviedb.org/3/${match.params["showType"]}/${match.params["id"]}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US`;
             const response = await fetch(API_URL);
             const showData = await response.json();
+
             if (showData.status_code === 34) {
                 setError(true);
             }
-            setShowDetails(showData);
-            const query = `${showData.name ? showData.name : ""}${showData.title ? showData.title : ""} trailer`;
-            const YOUTUBE_QUERY_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${query}%20trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
-            const youtubeResponse = await fetch(YOUTUBE_QUERY_URL);
+
+            setShowDetails({
+                title: showData.title || showData.original_name,
+                poster_path: showData.poster_path,
+                overview: showData.overview,
+                first_air_date: showData.first_air_date || showData.release_date,
+                vote_average: showData.vote_average
+            });
+
+            const youtube_query = `${showData.name || showData.title} trailer`;
+            const YOUTUBE_API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=relevance&q=${youtube_query}%20trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
+            const youtubeResponse = await fetch(YOUTUBE_API_URL);
             const youtubeData = await youtubeResponse.json();
+
             setYoutubeID(youtubeData.items[0].id.videoId);
             setLoading(false);
         };
@@ -45,14 +62,10 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
         <ShowDetailContainer>
             <div style={{ margin: "0 150px" }}>
                 <Poster src={`https://image.tmdb.org/t/p/w400${poster_path}`} alt="" />
-                <Title>
-                    {original_name}
-                    {title}
-                </Title>
+                <Title>{title}</Title>
                 <Info>
                     <ReleaseDate>
                         {match.params["showType"] === "movie" ? "Released: " : "First Air Date: "}
-                        {release_date}
                         {first_air_date}
                     </ReleaseDate>
                     <Rating>
