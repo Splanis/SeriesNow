@@ -23,8 +23,10 @@ const Links = () => {
                         <img style={{ height: 40, width: 40, padding: 5 }} src={UserIcon} alt="" /> {user.username}
                     </User>
                     <DropdownItems>
-                        <DropDownButtons>WhatchList</DropDownButtons>
-                        <StyledLink to={`/profile/${user.username}`}>
+                        <StyledLink to={`/mywatchlist`}>
+                            <DropDownButtons>Watchlist</DropDownButtons>
+                        </StyledLink>
+                        <StyledLink to={`/myprofile`}>
                             <DropDownButtons>Profile</DropDownButtons>
                         </StyledLink>
                         <DropDownButtons onClick={Logout}>Logout</DropDownButtons>
