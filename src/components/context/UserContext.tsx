@@ -9,6 +9,8 @@ export interface IUser {
     email?: string | null;
     username?: string | null;
     uid?: string | null;
+    watchlist: string[];
+    profilePhoto?: string;
 }
 
 interface UserProviderProps {
@@ -19,7 +21,8 @@ interface UserProviderProps {
 export const UserContext = createContext<UserProviderProps>({} as UserProviderProps);
 
 export const UserProvider = ({ children }: Props): JSX.Element => {
-    const [user, setUser] = useState<IUser | null>(null);
+    const localState = localStorage.getItem("user");
+    const [user, setUser] = useState<IUser | null>(localState ? JSON.parse(localState) : null);
 
     const providerValues: UserProviderProps = {
         user,
@@ -27,14 +30,17 @@ export const UserProvider = ({ children }: Props): JSX.Element => {
     };
 
     useEffect(() => {
-        fire.auth().onAuthStateChanged(User => {
-            if (User) {
-                setUser({ email: User.email, username: User.displayName, uid: User.uid });
-            } else {
-                setUser(null);
-            }
-        });
-    }, []);
+        if (!user) {
+            fire.auth().onAuthStateChanged(User => {
+                if (User) {
+                    setUser({ email: User.email, username: User.displayName, uid: User.uid, watchlist: [] });
+                } else {
+                    setUser(null);
+                }
+            });
+        }
+        localStorage.setItem("user", JSON.stringify(user));
+    }, [user]);
 
     return <UserContext.Provider value={providerValues}>{children}</UserContext.Provider>;
 };
