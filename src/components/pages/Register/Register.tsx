@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import fire from "../../../firebase/firebase";
 import { Redirect } from "react-router-dom";
-import { Button, Buttons } from "../../sharedStyles/Button";
+import { Button, Buttons } from "../../sharedStyles/Buttons";
 import { Form, Input } from "../../sharedStyles/Form";
 import { Errors } from "../../sharedStyles/Errors";
 import { Title } from "../../sharedStyles/Title";
