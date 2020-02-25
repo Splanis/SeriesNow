@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalTheme = createGlobalStyle`
     *,   
     *::before,
     *::after {
@@ -11,10 +11,14 @@ const GlobalStyles = createGlobalStyle`
         font-size: 16px; 
     }
 
+    *:focus {
+        outline: none;
+    }
+
     body{ 
         background: #212121;
         color: white;
     }
 `;
 
-export default GlobalStyles;
+export default GlobalTheme;
