@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "../../sharedStyles/Container";
+import { Container } from "../../shared/Container";
 import styled from "styled-components";
 
 const Error404: React.FC = () => {

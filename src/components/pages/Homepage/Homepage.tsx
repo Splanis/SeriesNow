@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import TrendingShow from "./TrendingShow";
 import { useTrendingShows } from "../../context/TrendingShowContext";
-import Spinner from "../../sharedStyles/Spinner";
-import { Container } from "../../sharedStyles/Container";
+import Spinner from "../../shared/Spinner";
+import { Container } from "../../shared/Container";
 
 import styled from "styled-components";
 

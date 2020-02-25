@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps, Redirect } from "react-router-dom";
-import Spinner from "../../sharedStyles/Spinner";
+import Spinner from "../../shared/Spinner";
 import styled from "styled-components";
+import LikeWatchlist from "../../shared/LikeWatchlist";
 
 type MatchType = {
     id: string;
@@ -72,6 +73,7 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
                         Rating:{" "}
                         <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
                     </Rating>
+                    <LikeWatchlist />
                 </Info>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>

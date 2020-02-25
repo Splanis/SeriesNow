@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import fire from "../../../firebase/firebase";
 import { Redirect } from "react-router-dom";
-import { Button, Buttons } from "../../sharedStyles/Buttons";
-import { Form, Input } from "../../sharedStyles/Form";
-import { Errors } from "../../sharedStyles/Errors";
-import { Title } from "../../sharedStyles/Title";
-import { Container } from "../../sharedStyles/Container";
+import { Button, Buttons } from "../../shared/Buttons";
+import { Form, Input } from "../../shared/Form";
+import { Errors } from "../../shared/Errors";
+import { Title } from "../../shared/Title";
+import { Container } from "../../shared/Container";
 import styled from "styled-components";
 
 const Register = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useShows } from "../../../context/ShowContext";
-import { Button } from "../../../sharedStyles/Buttons";
+import { Button } from "../../../shared/Buttons";
 
 const Sort: React.FC = () => {
     const { sort, setSort } = useShows();

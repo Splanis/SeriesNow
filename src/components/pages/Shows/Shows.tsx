@@ -3,8 +3,8 @@ import { useShows, IShow } from "../../context/ShowContext";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import Show from "./Show";
 import Header from "./header/Header";
-import Spinner from "../../sharedStyles/Spinner";
-import { Container } from "../../sharedStyles/Container";
+import Spinner from "../../shared/Spinner";
+import { Container } from "../../shared/Container";
 import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
 
