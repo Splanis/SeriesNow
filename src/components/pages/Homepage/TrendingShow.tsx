@@ -3,47 +3,23 @@ import { IShow } from "../../context/ShowContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const TrendingShow: React.FC<IShow> = ({
-    title,
-    original_name,
-    backdrop_path,
-    overview,
-    release_date,
-    first_air_date,
-    vote_average,
-    id
-}) => {
-    let showType;
-
-    if (title) {
-        showType = "movie";
-    } else {
-        showType = "tv";
-    }
-
+const TrendingShow: React.FC<IShow> = ({ title, backdrop_path, overview, first_air_date, vote_average, id, type }) => {
     return (
         <div>
-            <StyledLink to={`/showdetails/${showType}/${id}`}>
+            <StyledLink to={`/showdetails/${type}/${id}`}>
                 <ShowCard>
                     <Poster src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} alt="" />
                     <ShowDetails>
-                        <Title>
-                            {original_name}
-                            {title}
-                        </Title>
-                        <ReleaseDate>
-                            {release_date ? "Released: " : "First Air Date: "}
-                            {release_date}
-                            {first_air_date}
-                        </ReleaseDate>
+                        <Title>{title}</Title>
+                        <ReleaseDate>{first_air_date}</ReleaseDate>
                         <Overview>
-                            {overview ? overview.slice(0, 150) : overview}
+                            {overview && overview.slice(0, 150)}
                             {"..."}
                         </Overview>
                         <Info>
                             <Rating>
-                                Rating:{" "}
-                                <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>
+                                Rating:
+                                <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red", marginLeft: 5 }}>
                                     {vote_average}
                                 </span>
                             </Rating>

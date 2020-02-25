@@ -18,8 +18,46 @@ const Homepage: React.FC = () => {
         const movies_response = await fetch(API_MOVIES_URL);
         const movies_data = await movies_response.json();
 
-        setTVShows(tv_data.results.slice(0, 4));
-        setMovies(movies_data.results.slice(0, 4));
+        setTVShows(
+            tv_data.results
+                .map((show: any) => ({
+                    adult: show.adult,
+                    backdrop_path: show.backdrop_path,
+                    title: show.title || show.name,
+                    id: show.id,
+                    popularity: show.popularity,
+                    vote_count: show.vote_count,
+                    video: show.video,
+                    poster_path: show.poster_path,
+                    original_language: show.original_language,
+                    genre_ids: show.genre_ids,
+                    vote_average: show.vote_average,
+                    overview: show.overview,
+                    first_air_date: show.release_date || show.first_air_date,
+                    type: show.title ? "movie" : "tv"
+                }))
+                .slice(0, 4)
+        );
+        setMovies(
+            movies_data.results
+                .map((show: any) => ({
+                    adult: show.adult,
+                    backdrop_path: show.backdrop_path,
+                    title: show.title || show.name,
+                    id: show.id,
+                    popularity: show.popularity,
+                    vote_count: show.vote_count,
+                    video: show.video,
+                    poster_path: show.poster_path,
+                    original_language: show.original_language,
+                    genre_ids: show.genre_ids,
+                    vote_average: show.vote_average,
+                    overview: show.overview,
+                    first_air_date: show.release_date || show.first_air_date,
+                    type: show.title ? "movie" : "tv"
+                }))
+                .slice(0, 4)
+        );
         setLoading(false);
     };
 
@@ -31,14 +69,13 @@ const Homepage: React.FC = () => {
         return <Spinner />;
     }
     return (
-        <Container>
+        <Container style={{ padding: 50 }}>
             <Trending>Trending TV shows</Trending>
             <ShowsCards>
                 {TVShows.map(show => (
                     <TrendingShow
                         key={show.id}
                         title={show.title}
-                        original_name={show.original_name}
                         adult={show.adult}
                         backdrop_path={show.backdrop_path}
                         id={show.id}
@@ -50,8 +87,8 @@ const Homepage: React.FC = () => {
                         original_language={show.original_language}
                         genre_ids={show.genre_ids}
                         overview={show.overview}
-                        release_date={show.release_date}
                         first_air_date={show.first_air_date}
+                        type={show.type}
                     />
                 ))}
             </ShowsCards>
@@ -61,7 +98,6 @@ const Homepage: React.FC = () => {
                     <TrendingShow
                         key={movie.id}
                         title={movie.title}
-                        original_name={movie.original_name}
                         adult={movie.adult}
                         backdrop_path={movie.backdrop_path}
                         id={movie.id}
@@ -73,8 +109,8 @@ const Homepage: React.FC = () => {
                         original_language={movie.original_language}
                         genre_ids={movie.genre_ids}
                         overview={movie.overview}
-                        release_date={movie.release_date}
                         first_air_date={movie.first_air_date}
+                        type={movie.type}
                     />
                 ))}
             </ShowsCards>

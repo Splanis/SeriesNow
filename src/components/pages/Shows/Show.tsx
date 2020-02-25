@@ -8,7 +8,7 @@ import likedIcon from "../../../assets/icons/liked.png";
 import watchlistIcon from "../../../assets/icons/watchlist.png";
 import addedWatchlistIcon from "../../../assets/icons/addedWatchlist.png";
 
-const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, release_date, first_air_date, vote_average, id }) => {
+const Show: React.FC<IShow> = ({ title, poster_path, overview, first_air_date, vote_average, id }) => {
     const { showType } = useShows();
     const [liked, setLike] = useState<boolean>(false);
     const [watchlist, setWatchlist] = useState<boolean>(false);
@@ -27,13 +27,15 @@ const Show: React.FC<IShow> = ({ title, original_name, poster_path, overview, re
                 <Poster src={`https://image.tmdb.org/t/p/w400${poster_path}`} alt="" />
             </StyledLink>
             <ShowDetails>
-                <Title>{showType === "tv" ? <>{original_name}</> : <>{title}</>}</Title>
+                <Title>
+                    {title}
+                </Title>
                 <ReleaseDate>
                     {showType === "movie" ? "Released: " : "First Air Date: "}
-                    {showType === "tv" ? <>{first_air_date}</> : <>{release_date}</>}
+                    {first_air_date}
                 </ReleaseDate>
                 <Overview>
-                    {overview ? overview.slice(0, 100) : overview}
+                    {overview && overview.slice(0, 100)}
                     {"..."}
                 </Overview>
                 <Info>

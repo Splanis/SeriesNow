@@ -5,10 +5,9 @@ interface Props {
 }
 
 export interface IShow {
+    title: string;
     adult: boolean | undefined;
     backdrop_path: string;
-    title: string;
-    original_name: string;
     id: number;
     popularity: number;
     vote_count: number;
@@ -18,8 +17,8 @@ export interface IShow {
     genre_ids: number[];
     vote_average: number;
     overview: string;
-    release_date: string;
     first_air_date: string;
+    type: string;
 }
 
 interface IShowProviderProps {
@@ -29,12 +28,10 @@ interface IShowProviderProps {
     setSort: (sort: string) => void;
     query: string;
     setQuery: (sort: string) => void;
-    showType: "movie" | "tv";
-    setShowType: (sort: "movie" | "tv") => void;
+    showType: string;
+    setShowType: (sort: string) => void;
     page: number;
     setPage: (page: number) => void;
-    loading: boolean;
-    setLoading: (loading: boolean) => void;
 }
 
 export const ShowContext = createContext<IShowProviderProps>({} as IShowProviderProps);
@@ -43,9 +40,8 @@ export const ShowProvider = ({ children }: Props): JSX.Element => {
     const [shows, setShows] = useState<IShow[]>([] as IShow[]);
     const [sort, setSort] = useState<string>("popularity.desc");
     const [query, setQuery] = useState<string>("");
-    const [showType, setShowType] = useState<"movie" | "tv">("movie");
+    const [showType, setShowType] = useState<string>("");
     const [page, setPage] = useState<number>(1);
-    const [loading, setLoading] = useState<boolean>(true);
 
     const providerValues: IShowProviderProps = {
         shows,
@@ -57,9 +53,7 @@ export const ShowProvider = ({ children }: Props): JSX.Element => {
         showType,
         setShowType,
         page,
-        setPage,
-        loading,
-        setLoading
+        setPage
     };
 
     return <ShowContext.Provider value={providerValues}>{children}</ShowContext.Provider>;
