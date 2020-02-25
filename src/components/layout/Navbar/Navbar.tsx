@@ -4,7 +4,7 @@ import MainLogo from "./MainLogo";
 import Links from "./Links";
 import styled from "styled-components";
 
-const Movies: React.FC = () => {
+const NavBar: React.FC = () => {
     return (
         <Nav>
             <MainLogo />
@@ -26,4 +26,4 @@ const Nav = styled.nav`
     z-index: 10;
 `;
 
-export default Movies;
+export default NavBar;
