@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useShows } from "../../context/ShowContext";
 import { useUser } from "../../context/UserContext";
 import fire from "../../../firebase/firebase";
 import styled from "styled-components";
+import UserIcon from "../../../assets/icons/user-icon.png";
 
 const Links = () => {
     const { user, setUser } = useUser();
-    const { setPage, setShowType, setSort } = useShows();
 
     const Logout = () => {
         fire.auth().signOut();
@@ -16,31 +15,13 @@ const Links = () => {
 
     return (
         <LinksContainer>
-            <StyledLink
-                to="/tv"
-                onClick={() => {
-                    setShowType("tv");
-                    setSort("popularity.desc");
-                    setPage(1);
-                    window.scrollTo(0, 0);
-                }}
-            >
-                Series
-            </StyledLink>
-            <StyledLink
-                to="/movie"
-                onClick={() => {
-                    setShowType("movie");
-                    setSort("popularity.desc");
-                    setPage(1);
-                    window.scrollTo(0, 0);
-                }}
-            >
-                Movies
-            </StyledLink>
+            <StyledLink to="/tv">Series</StyledLink>
+            <StyledLink to="/movie">Movies</StyledLink>
             {user ? (
                 <Dropdown>
-                    <User>{user.username}</User>
+                    <User>
+                        <img style={{ height: 40, width: 40, padding: 5 }} src={UserIcon} alt="" /> {user.username}
+                    </User>
                     <DropdownItems>
                         <DropDownButtons>WhatchList</DropDownButtons>
                         <StyledLink to={`/profile/${user.username}`}>
@@ -51,7 +32,7 @@ const Links = () => {
                 </Dropdown>
             ) : (
                 <Sign>
-                    <StyledLink to="/login">Login</StyledLink>
+                    <LoginStyledLink to="/login">Login</LoginStyledLink>
                     <StyledLink to="/register">Register</StyledLink>
                 </Sign>
             )}
@@ -69,9 +50,16 @@ const StyledLink = styled(Link)`
     color: white;
     width: 120px;
     display: flex;
+    align-items: center;
     justify-content: center;
     text-decoration: none;
     font-size: 1.2rem;
+`;
+
+const LoginStyledLink = styled(StyledLink)`
+    background: red;
+    padding: 10px;
+    border-radius: 4px;
 `;
 
 const DropdownItems = styled.div`
@@ -112,6 +100,7 @@ const DropDownButtons = styled.button`
     color: white;
     padding: 16px;
     text-decoration: none;
+    width: 100%;
 
     &:hover {
         cursor: pointer;
