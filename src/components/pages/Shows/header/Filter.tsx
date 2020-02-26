@@ -5,13 +5,13 @@ import { Button } from "../../../shared/Buttons";
 import styled from "styled-components";
 
 export interface IGenre {
-    id: number;
+    id: string;
     name: string;
 }
 
 const Filter: React.FC = () => {
     const [fetchedGenres, setFetchedGenres] = useState<IGenre[]>([]);
-    const { genres, setGenres, showType } = useShows();
+    const { setGenres, showType } = useShows();
     let FETCH_GENRES_URL: string;
 
     useEffect(() => {
