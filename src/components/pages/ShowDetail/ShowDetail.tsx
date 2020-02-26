@@ -69,19 +69,23 @@ const ShowDetail: React.FC<RouteComponentProps<MatchType>> = ({ match }) => {
                         {match.params["showType"] === "movie" ? "Released: " : "First Air Date: "}
                         {first_air_date}
                     </ReleaseDate>
-                    <Rating>
-                        Rating:{" "}
-                        <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>{vote_average}</span>
-                    </Rating>
-                    <LikeWatchlist />
+                    <div style={{ display: "flex" }}>
+                        <Rating>
+                            Rating:{" "}
+                            <span style={{ color: vote_average >= 8 ? "green" : vote_average >= 5 ? "orange" : "red" }}>
+                                {vote_average}
+                            </span>
+                        </Rating>
+                        <LikeWatchlist />
+                    </div>
                 </Info>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                 <Trailer
+                    src={`https://www.youtube.com/embed/${youtubeID}?autoplay=1`}
                     width="940"
                     title={title}
                     height="600"
-                    src={`https://www.youtube.com/embed/${youtubeID}`}
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 ></Trailer>
                 <Overview>{overview}</Overview>
@@ -99,6 +103,7 @@ const ShowDetailContainer = styled.div`
 
 const Title = styled.h1`
     font-size: 4rem;
+    text-align: center;
 `;
 
 const Poster = styled.img`
