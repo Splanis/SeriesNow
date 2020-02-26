@@ -76,7 +76,17 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
             }
             fetchData();
         }
-    }, [query, page, showType, sort]);
+    }, [query, page, showType]);
+
+    useLayoutEffect(() => {
+        if (!isInitialMount.current) {
+            if (page !== 1) {
+                setPage(1);
+            } else {
+                fetchData();
+            }
+        }
+    }, [sort]);
 
     useLayoutEffect(() => {
         if (!isInitialMount.current) {
