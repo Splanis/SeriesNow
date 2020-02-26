@@ -10,7 +10,7 @@ const TrendingShow: React.FC<IShow> = ({ title, backdrop_path, overview, first_a
                 <ShowCard>
                     <Poster src={`https://image.tmdb.org/t/p/w500${backdrop_path}`} alt="" />
                     <ShowDetails>
-                        <Title>{title}</Title>
+                        <Title>{title.length >= 30 ? title.slice(0, 30) + "..." : title}</Title>
                         <ReleaseDate>{first_air_date}</ReleaseDate>
                         <Overview>
                             {overview && overview.slice(0, 150)}
@@ -42,7 +42,7 @@ const ShowCard = styled.div`
     align-items: flex-start;
     width: 400px;
     height: 220px;
-    margin: 25px;
+    margin: 5px;
     border-radius: 3px;
     box-shadow: 1px 1px 5px #111;
     transition: all 0.2s ease-in-out;
@@ -81,7 +81,7 @@ const ShowDetails = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     flex: 3;
     display: flex;
     align-items: center;
