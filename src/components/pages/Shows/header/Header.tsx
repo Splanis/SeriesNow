@@ -1,13 +1,26 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 import Filter from "./Filter";
 import Sort from "./Sort";
+import { Button, Buttons } from "../../../shared/Buttons";
+import styled from "styled-components";
 
 const Header: React.FC = () => {
+    const [filters, setFilters] = useState<boolean>(false);
+
     return (
         <HeaderContainer>
-            <Sort />
-            <Filter />
+            <Buttons>
+                <Sort />
+                <Button
+                    style={{ marginLeft: "auto" }}
+                    onClick={() => {
+                        setFilters(filters => !filters);
+                    }}
+                >
+                    Filters
+                </Button>
+            </Buttons>
+            {filters && <Filter />}
         </HeaderContainer>
     );
 };
