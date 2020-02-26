@@ -14,7 +14,7 @@ const Show: React.FC<IShow> = ({ title, poster_path, overview, first_air_date, v
                 <Poster src={`https://image.tmdb.org/t/p/w400${poster_path}`} alt="No available image" />
             </StyledLink>
             <ShowDetails>
-                <Title>{title}</Title>
+                <Title>{title.length >= 45 ? title.slice(0, 45) + "..." : title}</Title>
                 <ReleaseDate>
                     {showType === "movie" ? "Released: " : "First Air Date: "}
                     {first_air_date}
@@ -43,12 +43,13 @@ const StyledLink = styled(Link)`
 `;
 
 const ShowCard = styled.div`
+    background: #313131;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     width: 300px;
-    height: 590px;
+    height: 610px;
     margin: 10px;
     border-radius: 3px;
     box-shadow: -5px -5px 20px #111, 5px 5px 20px #222;
@@ -66,11 +67,11 @@ const ShowDetails = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 180px;
+    height: 100%;
 `;
 
 const Title = styled.h1`
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     flex: 2;
     display: flex;
     align-items: center;
@@ -82,7 +83,6 @@ const ReleaseDate = styled.p`
     font-size: 0.9rem;
     opacity: 0.8;
     flex: 1;
-    margin: 5px 0;
 `;
 
 const Overview = styled.p`
