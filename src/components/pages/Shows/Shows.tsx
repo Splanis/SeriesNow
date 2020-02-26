@@ -9,15 +9,19 @@ import styled from "styled-components";
 import BottomScrollListener from "react-bottom-scroll-listener";
 
 const Shows: React.FC<RouteComponentProps<string>> = props => {
-    const { shows, setShows, page, setPage, query, sort, setSort, showType, setShowType } = useShows();
+    const { shows, setShows, page, setPage, query, sort, setSort, showType, setShowType, genres, setGenres } = useShows();
     const [loading, setLoading] = useState<boolean>(true);
     const isInitialMount = useRef(true);
 
     const fetchData = async () => {
         const today = new Date().toJSON().slice(0, 10);
-        const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}&primary_release_date.lte=${today}&first_air_date.lte=${today}`;
+        const API_URL = `https://api.themoviedb.org/3/discover/${showType}?api_key=${
+            process.env.REACT_APP_TMDb_API_KEY
+        }&language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}&primary_release_date.lte=${today}&first_air_date.lte=${today}&with_genres=${genres.join(
+            "%2C"
+        )}`;
         const API_SEARCH_URL = `https://api.themoviedb.org/3/search/${showType}?api_key=${process.env.REACT_APP_TMDb_API_KEY}&language=en-US&query=${query}&include_adult=false`;
-        let FETCH_URL = "";
+        let FETCH_URL: string;
 
         if (query) {
             FETCH_URL = API_SEARCH_URL;
@@ -43,15 +47,13 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
             first_air_date: show.release_date || show.first_air_date,
             type: show.title ? "movie" : "tv"
         }));
-        
+
         if (page === 1 || query) {
             setShows(results);
-            console.log(shows);
         } else {
             setShows([...shows, ...results]);
         }
         setLoading(false);
-        console.log("fetching");
     };
 
     useEffect(() => {
@@ -67,9 +69,10 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
         return () => {
             setShows([] as IShow[]);
             setShowType("");
+            setGenres([]);
         };
     }, []);
-
+    console.log(genres);
     useLayoutEffect(() => {
         if (!isInitialMount.current) {
             if (query && page !== 1) {
@@ -87,7 +90,7 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
                 fetchData();
             }
         }
-    }, [sort]);
+    }, [sort, genres]);
 
     useLayoutEffect(() => {
         if (!isInitialMount.current) {
@@ -95,6 +98,7 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
             setShowType(currentPath);
             setPage(1);
             setLoading(true);
+            setGenres([]);
             setSort("popularity.desc");
             window.scrollTo(0, 0);
         }
@@ -105,7 +109,12 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
     }
 
     if (shows.length === 0) {
-        return <Paragraph>No Shows Found</Paragraph>;
+        return (
+            <div>
+                <Header />
+                <Paragraph>No Shows Found</Paragraph>
+            </div>
+        );
     }
 
     return (
