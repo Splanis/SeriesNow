@@ -11,14 +11,13 @@ const Header: React.FC = () => {
         <HeaderContainer>
             <Buttons>
                 <Sort />
-                <Button
-                    style={{ marginLeft: "auto" }}
+                <FilterButton
                     onClick={() => {
                         setFilters(filters => !filters);
                     }}
                 >
                     Filters
-                </Button>
+                </FilterButton>
             </Buttons>
             {filters && <Filter />}
         </HeaderContainer>
@@ -30,6 +29,14 @@ const HeaderContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`;
+
+const FilterButton = styled(Button)`
+    background: red;
+
+    &:hover {
+        background: red;
+    }
 `;
 
 export default Header;
