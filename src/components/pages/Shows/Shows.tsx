@@ -72,7 +72,7 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
             setGenres([]);
         };
     }, []);
-    console.log(genres);
+
     useLayoutEffect(() => {
         if (!isInitialMount.current) {
             if (query && page !== 1) {
