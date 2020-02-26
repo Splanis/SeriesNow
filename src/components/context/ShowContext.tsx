@@ -32,8 +32,8 @@ interface IShowProviderProps {
     setShowType: (sort: string) => void;
     page: number;
     setPage: (page: number) => void;
-    genres: number[];
-    setGenres: (genres: number[]) => void;
+    genres: string[];
+    setGenres: (genres: string[]) => void;
 }
 
 export const ShowContext = createContext<IShowProviderProps>({} as IShowProviderProps);
@@ -44,7 +44,7 @@ export const ShowProvider = ({ children }: Props): JSX.Element => {
     const [query, setQuery] = useState<string>("");
     const [showType, setShowType] = useState<string>("");
     const [page, setPage] = useState<number>(1);
-    const [genres, setGenres] = useState<number[]>([]);
+    const [genres, setGenres] = useState<string[]>([]);
 
     const providerValues: IShowProviderProps = {
         shows,
