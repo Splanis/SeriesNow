@@ -27,27 +27,28 @@ const Shows: React.FC<RouteComponentProps<string>> = props => {
 
         const response = await fetch(FETCH_URL);
         const fetchedShows = await response.json();
+        const results = fetchedShows.results.map((show: any) => ({
+            adult: show.adult,
+            backdrop_path: show.backdrop_path,
+            title: show.title || show.name,
+            id: show.id,
+            popularity: show.popularity,
+            vote_count: show.vote_count,
+            video: show.video,
+            poster_path: show.poster_path,
+            original_language: show.original_language,
+            genre_ids: show.genre_ids,
+            vote_average: show.vote_average,
+            overview: show.overview,
+            first_air_date: show.release_date || show.first_air_date,
+            type: show.title ? "movie" : "tv"
+        }));
+        
         if (page === 1 || query) {
-            setShows(
-                fetchedShows.results.map((show: any) => ({
-                    adult: show.adult,
-                    backdrop_path: show.backdrop_path,
-                    title: show.title || show.name,
-                    id: show.id,
-                    popularity: show.popularity,
-                    vote_count: show.vote_count,
-                    video: show.video,
-                    poster_path: show.poster_path,
-                    original_language: show.original_language,
-                    genre_ids: show.genre_ids,
-                    vote_average: show.vote_average,
-                    overview: show.overview,
-                    first_air_date: show.release_date || show.first_air_date,
-                    type: show.title ? "movie" : "tv"
-                }))
-            );
+            setShows(results);
+            console.log(shows);
         } else {
-            setShows([...shows, ...fetchedShows.results]);
+            setShows([...shows, ...results]);
         }
         setLoading(false);
         console.log("fetching");
